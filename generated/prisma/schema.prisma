@@ -1,0 +1,173 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  BUYER
+  SELLER
+  ADMIN
+}
+
+enum OrderStatus {
+  PENDING
+  IN_PROGRESS
+  DELIVERED
+  COMPLETED
+  CANCELLED
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESS
+  FAILED
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String?
+  role      Role
+  createdAt DateTime @default(now())
+
+  buyerProfile  BuyerProfile?
+  sellerProfile SellerProfile?
+}
+
+model BuyerProfile {
+  id     String @id @default(uuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id])
+
+  savedServices Service[]      @relation("SavedServices")
+  orders        Order[]        @relation("BuyerOrders")
+  reviews       Review[]
+  conversations Conversation[] @relation("BuyerConversations")
+
+  // messages sent by buyer
+  sentMessages Message[] @relation("MessageSenderBuyer")
+}
+
+model SellerProfile {
+  id     String @id @default(uuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id])
+
+  bio       String?
+  skills    String[]
+  portfolio String[]
+  earnings  Float    @default(0)
+
+  services      Service[]      @relation("SellerServices")
+  orders        Order[]        @relation("SellerOrders")
+  conversations Conversation[] @relation("SellerConversations")
+
+  // messages sent by seller
+  sentMessages Message[] @relation("MessageSenderSeller")
+}
+
+model Category {
+  id       String    @id @default(uuid())
+  name     String    @unique
+  icon     String?
+  services Service[]
+}
+
+model Service {
+  id           String   @id @default(uuid())
+  title        String
+  description  String
+  price        Float
+  deliveryDays Int
+  images       String[]
+  createdAt    DateTime @default(now())
+
+  sellerId String
+  seller   SellerProfile @relation("SellerServices", fields: [sellerId], references: [id])
+
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  orders  Order[]
+  reviews Review[]
+  savedBy BuyerProfile[] @relation("SavedServices")
+}
+
+model Order {
+  id           String      @id @default(uuid())
+  status       OrderStatus @default(PENDING)
+  requirements String?
+  createdAt    DateTime    @default(now())
+
+  serviceId String
+  service   Service @relation(fields: [serviceId], references: [id])
+
+  buyerId String
+  buyer   BuyerProfile @relation("BuyerOrders", fields: [buyerId], references: [id])
+
+  sellerId String
+  seller   SellerProfile @relation("SellerOrders", fields: [sellerId], references: [id])
+
+  payment Payment?
+  review  Review?
+}
+
+model Payment {
+  id        String        @id @default(uuid())
+  amount    Float
+  status    PaymentStatus @default(PENDING)
+  provider  String
+  createdAt DateTime      @default(now())
+
+  orderId String @unique
+  order   Order  @relation(fields: [orderId], references: [id])
+}
+
+model Review {
+  id        String   @id @default(uuid())
+  rating    Int
+  comment   String?
+  createdAt DateTime @default(now())
+
+  buyerId String
+  buyer   BuyerProfile @relation(fields: [buyerId], references: [id])
+
+  serviceId String
+  service   Service @relation(fields: [serviceId], references: [id])
+
+  orderId String @unique
+  order   Order  @relation(fields: [orderId], references: [id])
+}
+
+model Conversation {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  buyerId String
+  buyer   BuyerProfile @relation("BuyerConversations", fields: [buyerId], references: [id])
+
+  sellerId String
+  seller   SellerProfile @relation("SellerConversations", fields: [sellerId], references: [id])
+
+  messages Message[]
+}
+
+model Message {
+  id        String   @id @default(uuid())
+  content   String
+  createdAt DateTime @default(now())
+
+  senderBuyerId String?
+  senderBuyer   BuyerProfile? @relation("MessageSenderBuyer", fields: [senderBuyerId], references: [id], map: "fk_message_sender_buyer")
+
+  senderSellerId String?
+  senderSeller   SellerProfile? @relation("MessageSenderSeller", fields: [senderSellerId], references: [id], map: "fk_message_sender_seller")
+
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+}

@@ -63,10 +63,11 @@ model SellerProfile {
   userId String @unique
   user   User   @relation(fields: [userId], references: [id])
 
-  bio       String?
-  skills    String[]
-  portfolio String[]
-  earnings  Float    @default(0)
+  bio          String?
+  skills       String[]
+  portfolio    String[]
+  earnings     Float    @default(0)
+  profileImage String? // <-- new field for seller profile picture
 
   services      Service[]      @relation("SellerServices")
   orders        Order[]        @relation("SellerOrders")

@@ -1,15 +1,22 @@
 // src/middlewares/validateRequest.ts
-import { ZodSchema } from "zod";
 import { Request, Response, NextFunction } from "express";
+import { ZodType } from "zod";
 
 export const validateRequest =
-  (schema: ZodSchema) => (req: Request, _res: Response, next: NextFunction) => {
+  (schema: ZodType<any>) =>
+  (req: Request, res: Response, next: NextFunction) => {
     try {
-      // only parse the relevant object (body, params, or query)
-      const validatedData = schema.parse(req.body); // <-- body-only
-      req.body = validatedData;
+      schema.parse({
+        body: req.body,
+        params: req.params,
+        query: req.query,
+      });
       next();
-    } catch (error: any) {
-      next(error); // send to global error handler
+    } catch (err: any) {
+      return res.status(400).json({
+        success: false,
+        message:
+          err.errors?.map((e: any) => e.message).join(", ") || err.message,
+      });
     }
   };

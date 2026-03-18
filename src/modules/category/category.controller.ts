@@ -1,57 +1,42 @@
 // src/modules/category/category.controller.ts
 import { Request, Response } from "express";
 import { CategoryService } from "./cateogory.service";
+import { catchAsync } from "../../utils/catchAsync";
 import { AuthRequest } from "../../middlewares/auth.middleware";
+import { AppError } from "../../errors/AppError";
 
 export const CategoryController = {
-  createCategory: async (req: AuthRequest, res: Response) => {
-    try {
-      const { name, icon } = req.body;
+  createCategory: catchAsync(async (req: AuthRequest, res: Response) => {
+    const category = await CategoryService.createCategory(req.body);
 
-      if (!name) {
-        return res
-          .status(400)
-          .json({ success: false, message: "Name is required" });
-      }
+    res.status(201).json({
+      success: true,
+      message: "Category created successfully",
+      data: category,
+    });
+  }),
 
-      const category = await CategoryService.createCategory({ name, icon });
+  getAllCategories: catchAsync(async (_req: Request, res: Response) => {
+    const categories = await CategoryService.getAllCategories();
 
-      return res.status(201).json({
-        success: true,
-        message: "Category created successfully",
-        data: category,
-      });
-    } catch (error: any) {
-      return res.status(400).json({
-        success: false,
-        message: error.message,
-      });
+    res.status(200).json({
+      success: true,
+      data: categories,
+    });
+  }),
+
+  getCategoryById: catchAsync(async (req: Request, res: Response) => {
+    const id = req.params.id as string;
+
+    const category = await CategoryService.getCategoryById(id);
+
+    if (!category) {
+      throw new AppError("Category not found", 404);
     }
-  },
 
-  getAllCategories: async (_req: Request, res: Response) => {
-    try {
-      const categories = await CategoryService.getAllCategories();
-      return res.status(200).json({ success: true, data: categories });
-    } catch (error: any) {
-      return res.status(400).json({ success: false, message: error.message });
-    }
-  },
-
-  getCategoryById: async (req: Request, res: Response) => {
-    try {
-      const id = req.params.id as string;
-      const category = await CategoryService.getCategoryById(id);
-
-      if (!category) {
-        return res
-          .status(404)
-          .json({ success: false, message: "Category not found" });
-      }
-
-      return res.status(200).json({ success: true, data: category });
-    } catch (error: any) {
-      return res.status(400).json({ success: false, message: error.message });
-    }
-  },
+    res.status(200).json({
+      success: true,
+      data: category,
+    });
+  }),
 };

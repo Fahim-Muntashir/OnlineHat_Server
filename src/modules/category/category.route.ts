@@ -1,21 +1,19 @@
 // src/modules/category/category.route.ts
 import express from "express";
 import { CategoryController } from "./category.controller";
-import { authorizeRoles } from "../../middlewares/role.middleware";
+import { createCategorySchema } from "./category.validation";
 import { authenticate } from "../../middlewares/auth.middleware";
+import { authorizeRoles } from "../../middlewares/role.middleware";
+import { validateRequest } from "../../middlewares/validateRequest";
 
 const router = express.Router();
 
-// Admin-only route to create category
 router.post(
   "/",
   authenticate,
   authorizeRoles("ADMIN"),
+  validateRequest(createCategorySchema),
   CategoryController.createCategory,
 );
-
-// Public routes to get categories
-router.get("/", CategoryController.getAllCategories);
-router.get("/:id", CategoryController.getCategoryById);
 
 export const CategoryRoutes = router;

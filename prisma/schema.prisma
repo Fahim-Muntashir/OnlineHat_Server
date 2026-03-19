@@ -27,6 +27,12 @@ enum PaymentStatus {
   FAILED
 }
 
+enum PackageType {
+  BASIC
+  STANDARD
+  PREMIUM
+}
+
 model User {
   id           String   @id @default(uuid())
   name         String
@@ -84,20 +90,36 @@ model Category {
   services Service[]
 }
 
-model Service {
-  id           String   @id @default(uuid())
+model ServicePackage {
+  id           String  @id @default(uuid())
   title        String
-  description  String
+  description  String?
   price        Float
   deliveryDays Int
-  images       String[]
-  createdAt    DateTime @default(now())
+  revisions    Int?
+
+  type PackageType
+
+  serviceId String
+  service   Service @relation(fields: [serviceId], references: [id])
+
+  createdAt DateTime @default(now())
+}
+
+model Service {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  images      String[]
+  createdAt   DateTime @default(now())
 
   sellerId String
   seller   SellerProfile @relation("SellerServices", fields: [sellerId], references: [id])
 
   categoryId String
   category   Category @relation(fields: [categoryId], references: [id])
+
+  packages ServicePackage[] // ✅ NEW
 
   orders  Order[]
   reviews Review[]

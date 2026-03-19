@@ -132,7 +132,11 @@ exports.Prisma.UserScalarFieldEnum = {
 
 exports.Prisma.BuyerProfileScalarFieldEnum = {
   id: 'id',
-  userId: 'userId'
+  userId: 'userId',
+  bio: 'bio',
+  phone: 'phone',
+  address: 'address',
+  profileImage: 'profileImage'
 };
 
 exports.Prisma.SellerProfileScalarFieldEnum = {
@@ -141,7 +145,8 @@ exports.Prisma.SellerProfileScalarFieldEnum = {
   bio: 'bio',
   skills: 'skills',
   portfolio: 'portfolio',
-  earnings: 'earnings'
+  earnings: 'earnings',
+  profileImage: 'profileImage'
 };
 
 exports.Prisma.CategoryScalarFieldEnum = {
@@ -150,12 +155,22 @@ exports.Prisma.CategoryScalarFieldEnum = {
   icon: 'icon'
 };
 
-exports.Prisma.ServiceScalarFieldEnum = {
+exports.Prisma.ServicePackageScalarFieldEnum = {
   id: 'id',
   title: 'title',
   description: 'description',
   price: 'price',
   deliveryDays: 'deliveryDays',
+  revisions: 'revisions',
+  type: 'type',
+  serviceId: 'serviceId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.ServiceScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
   images: 'images',
   createdAt: 'createdAt',
   sellerId: 'sellerId',
@@ -227,6 +242,12 @@ exports.Role = exports.$Enums.Role = {
   ADMIN: 'ADMIN'
 };
 
+exports.PackageType = exports.$Enums.PackageType = {
+  BASIC: 'BASIC',
+  STANDARD: 'STANDARD',
+  PREMIUM: 'PREMIUM'
+};
+
 exports.OrderStatus = exports.$Enums.OrderStatus = {
   PENDING: 'PENDING',
   IN_PROGRESS: 'IN_PROGRESS',
@@ -246,6 +267,7 @@ exports.Prisma.ModelName = {
   BuyerProfile: 'BuyerProfile',
   SellerProfile: 'SellerProfile',
   Category: 'Category',
+  ServicePackage: 'ServicePackage',
   Service: 'Service',
   Order: 'Order',
   Payment: 'Payment',

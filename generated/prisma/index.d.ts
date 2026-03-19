@@ -1987,6 +1987,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type ServicePackageCountOutputType
+   */
+
+  export type ServicePackageCountOutputType = {
+    orders: number
+  }
+
+  export type ServicePackageCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    orders?: boolean | ServicePackageCountOutputTypeCountOrdersArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ServicePackageCountOutputType without action
+   */
+  export type ServicePackageCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServicePackageCountOutputType
+     */
+    select?: ServicePackageCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ServicePackageCountOutputType without action
+   */
+  export type ServicePackageCountOutputTypeCountOrdersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OrderWhereInput
+  }
+
+
+  /**
    * Count Type ServiceCountOutputType
    */
 
@@ -6931,6 +6962,8 @@ export namespace Prisma {
     serviceId?: boolean
     createdAt?: boolean
     service?: boolean | ServiceDefaultArgs<ExtArgs>
+    orders?: boolean | ServicePackage$ordersArgs<ExtArgs>
+    _count?: boolean | ServicePackageCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["servicePackage"]>
 
   export type ServicePackageSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -6974,6 +7007,8 @@ export namespace Prisma {
   export type ServicePackageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "price" | "deliveryDays" | "revisions" | "type" | "serviceId" | "createdAt", ExtArgs["result"]["servicePackage"]>
   export type ServicePackageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     service?: boolean | ServiceDefaultArgs<ExtArgs>
+    orders?: boolean | ServicePackage$ordersArgs<ExtArgs>
+    _count?: boolean | ServicePackageCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ServicePackageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     service?: boolean | ServiceDefaultArgs<ExtArgs>
@@ -6986,6 +7021,7 @@ export namespace Prisma {
     name: "ServicePackage"
     objects: {
       service: Prisma.$ServicePayload<ExtArgs>
+      orders: Prisma.$OrderPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7392,6 +7428,7 @@ export namespace Prisma {
   export interface Prisma__ServicePackageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     service<T extends ServiceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ServiceDefaultArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    orders<T extends ServicePackage$ordersArgs<ExtArgs> = {}>(args?: Subset<T, ServicePackage$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7828,6 +7865,30 @@ export namespace Prisma {
      * Limit how many ServicePackages to delete.
      */
     limit?: number
+  }
+
+  /**
+   * ServicePackage.orders
+   */
+  export type ServicePackage$ordersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Order
+     */
+    select?: OrderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Order
+     */
+    omit?: OrderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrderInclude<ExtArgs> | null
+    where?: OrderWhereInput
+    orderBy?: OrderOrderByWithRelationInput | OrderOrderByWithRelationInput[]
+    cursor?: OrderWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: OrderScalarFieldEnum | OrderScalarFieldEnum[]
   }
 
   /**
@@ -9062,8 +9123,20 @@ export namespace Prisma {
 
   export type AggregateOrder = {
     _count: OrderCountAggregateOutputType | null
+    _avg: OrderAvgAggregateOutputType | null
+    _sum: OrderSumAggregateOutputType | null
     _min: OrderMinAggregateOutputType | null
     _max: OrderMaxAggregateOutputType | null
+  }
+
+  export type OrderAvgAggregateOutputType = {
+    price: number | null
+    deliveryDays: number | null
+  }
+
+  export type OrderSumAggregateOutputType = {
+    price: number | null
+    deliveryDays: number | null
   }
 
   export type OrderMinAggregateOutputType = {
@@ -9072,6 +9145,9 @@ export namespace Prisma {
     requirements: string | null
     createdAt: Date | null
     serviceId: string | null
+    packageId: string | null
+    price: number | null
+    deliveryDays: number | null
     buyerId: string | null
     sellerId: string | null
   }
@@ -9082,6 +9158,9 @@ export namespace Prisma {
     requirements: string | null
     createdAt: Date | null
     serviceId: string | null
+    packageId: string | null
+    price: number | null
+    deliveryDays: number | null
     buyerId: string | null
     sellerId: string | null
   }
@@ -9092,11 +9171,24 @@ export namespace Prisma {
     requirements: number
     createdAt: number
     serviceId: number
+    packageId: number
+    price: number
+    deliveryDays: number
     buyerId: number
     sellerId: number
     _all: number
   }
 
+
+  export type OrderAvgAggregateInputType = {
+    price?: true
+    deliveryDays?: true
+  }
+
+  export type OrderSumAggregateInputType = {
+    price?: true
+    deliveryDays?: true
+  }
 
   export type OrderMinAggregateInputType = {
     id?: true
@@ -9104,6 +9196,9 @@ export namespace Prisma {
     requirements?: true
     createdAt?: true
     serviceId?: true
+    packageId?: true
+    price?: true
+    deliveryDays?: true
     buyerId?: true
     sellerId?: true
   }
@@ -9114,6 +9209,9 @@ export namespace Prisma {
     requirements?: true
     createdAt?: true
     serviceId?: true
+    packageId?: true
+    price?: true
+    deliveryDays?: true
     buyerId?: true
     sellerId?: true
   }
@@ -9124,6 +9222,9 @@ export namespace Prisma {
     requirements?: true
     createdAt?: true
     serviceId?: true
+    packageId?: true
+    price?: true
+    deliveryDays?: true
     buyerId?: true
     sellerId?: true
     _all?: true
@@ -9167,6 +9268,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: OrderAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: OrderSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: OrderMinAggregateInputType
@@ -9197,6 +9310,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: OrderCountAggregateInputType | true
+    _avg?: OrderAvgAggregateInputType
+    _sum?: OrderSumAggregateInputType
     _min?: OrderMinAggregateInputType
     _max?: OrderMaxAggregateInputType
   }
@@ -9207,9 +9322,14 @@ export namespace Prisma {
     requirements: string | null
     createdAt: Date
     serviceId: string
+    packageId: string
+    price: number
+    deliveryDays: number
     buyerId: string
     sellerId: string
     _count: OrderCountAggregateOutputType | null
+    _avg: OrderAvgAggregateOutputType | null
+    _sum: OrderSumAggregateOutputType | null
     _min: OrderMinAggregateOutputType | null
     _max: OrderMaxAggregateOutputType | null
   }
@@ -9234,9 +9354,13 @@ export namespace Prisma {
     requirements?: boolean
     createdAt?: boolean
     serviceId?: boolean
+    packageId?: boolean
+    price?: boolean
+    deliveryDays?: boolean
     buyerId?: boolean
     sellerId?: boolean
     service?: boolean | ServiceDefaultArgs<ExtArgs>
+    package?: boolean | ServicePackageDefaultArgs<ExtArgs>
     buyer?: boolean | BuyerProfileDefaultArgs<ExtArgs>
     seller?: boolean | SellerProfileDefaultArgs<ExtArgs>
     payment?: boolean | Order$paymentArgs<ExtArgs>
@@ -9249,9 +9373,13 @@ export namespace Prisma {
     requirements?: boolean
     createdAt?: boolean
     serviceId?: boolean
+    packageId?: boolean
+    price?: boolean
+    deliveryDays?: boolean
     buyerId?: boolean
     sellerId?: boolean
     service?: boolean | ServiceDefaultArgs<ExtArgs>
+    package?: boolean | ServicePackageDefaultArgs<ExtArgs>
     buyer?: boolean | BuyerProfileDefaultArgs<ExtArgs>
     seller?: boolean | SellerProfileDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["order"]>
@@ -9262,9 +9390,13 @@ export namespace Prisma {
     requirements?: boolean
     createdAt?: boolean
     serviceId?: boolean
+    packageId?: boolean
+    price?: boolean
+    deliveryDays?: boolean
     buyerId?: boolean
     sellerId?: boolean
     service?: boolean | ServiceDefaultArgs<ExtArgs>
+    package?: boolean | ServicePackageDefaultArgs<ExtArgs>
     buyer?: boolean | BuyerProfileDefaultArgs<ExtArgs>
     seller?: boolean | SellerProfileDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["order"]>
@@ -9275,13 +9407,17 @@ export namespace Prisma {
     requirements?: boolean
     createdAt?: boolean
     serviceId?: boolean
+    packageId?: boolean
+    price?: boolean
+    deliveryDays?: boolean
     buyerId?: boolean
     sellerId?: boolean
   }
 
-  export type OrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "status" | "requirements" | "createdAt" | "serviceId" | "buyerId" | "sellerId", ExtArgs["result"]["order"]>
+  export type OrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "status" | "requirements" | "createdAt" | "serviceId" | "packageId" | "price" | "deliveryDays" | "buyerId" | "sellerId", ExtArgs["result"]["order"]>
   export type OrderInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     service?: boolean | ServiceDefaultArgs<ExtArgs>
+    package?: boolean | ServicePackageDefaultArgs<ExtArgs>
     buyer?: boolean | BuyerProfileDefaultArgs<ExtArgs>
     seller?: boolean | SellerProfileDefaultArgs<ExtArgs>
     payment?: boolean | Order$paymentArgs<ExtArgs>
@@ -9289,11 +9425,13 @@ export namespace Prisma {
   }
   export type OrderIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     service?: boolean | ServiceDefaultArgs<ExtArgs>
+    package?: boolean | ServicePackageDefaultArgs<ExtArgs>
     buyer?: boolean | BuyerProfileDefaultArgs<ExtArgs>
     seller?: boolean | SellerProfileDefaultArgs<ExtArgs>
   }
   export type OrderIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     service?: boolean | ServiceDefaultArgs<ExtArgs>
+    package?: boolean | ServicePackageDefaultArgs<ExtArgs>
     buyer?: boolean | BuyerProfileDefaultArgs<ExtArgs>
     seller?: boolean | SellerProfileDefaultArgs<ExtArgs>
   }
@@ -9302,6 +9440,7 @@ export namespace Prisma {
     name: "Order"
     objects: {
       service: Prisma.$ServicePayload<ExtArgs>
+      package: Prisma.$ServicePackagePayload<ExtArgs>
       buyer: Prisma.$BuyerProfilePayload<ExtArgs>
       seller: Prisma.$SellerProfilePayload<ExtArgs>
       payment: Prisma.$PaymentPayload<ExtArgs> | null
@@ -9313,6 +9452,9 @@ export namespace Prisma {
       requirements: string | null
       createdAt: Date
       serviceId: string
+      packageId: string
+      price: number
+      deliveryDays: number
       buyerId: string
       sellerId: string
     }, ExtArgs["result"]["order"]>
@@ -9710,6 +9852,7 @@ export namespace Prisma {
   export interface Prisma__OrderClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     service<T extends ServiceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ServiceDefaultArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    package<T extends ServicePackageDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ServicePackageDefaultArgs<ExtArgs>>): Prisma__ServicePackageClient<$Result.GetResult<Prisma.$ServicePackagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     buyer<T extends BuyerProfileDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BuyerProfileDefaultArgs<ExtArgs>>): Prisma__BuyerProfileClient<$Result.GetResult<Prisma.$BuyerProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     seller<T extends SellerProfileDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SellerProfileDefaultArgs<ExtArgs>>): Prisma__SellerProfileClient<$Result.GetResult<Prisma.$SellerProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     payment<T extends Order$paymentArgs<ExtArgs> = {}>(args?: Subset<T, Order$paymentArgs<ExtArgs>>): Prisma__PaymentClient<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -9748,6 +9891,9 @@ export namespace Prisma {
     readonly requirements: FieldRef<"Order", 'String'>
     readonly createdAt: FieldRef<"Order", 'DateTime'>
     readonly serviceId: FieldRef<"Order", 'String'>
+    readonly packageId: FieldRef<"Order", 'String'>
+    readonly price: FieldRef<"Order", 'Float'>
+    readonly deliveryDays: FieldRef<"Order", 'Int'>
     readonly buyerId: FieldRef<"Order", 'String'>
     readonly sellerId: FieldRef<"Order", 'String'>
   }
@@ -14769,6 +14915,9 @@ export namespace Prisma {
     requirements: 'requirements',
     createdAt: 'createdAt',
     serviceId: 'serviceId',
+    packageId: 'packageId',
+    price: 'price',
+    deliveryDays: 'deliveryDays',
     buyerId: 'buyerId',
     sellerId: 'sellerId'
   };
@@ -15248,6 +15397,7 @@ export namespace Prisma {
     serviceId?: StringFilter<"ServicePackage"> | string
     createdAt?: DateTimeFilter<"ServicePackage"> | Date | string
     service?: XOR<ServiceScalarRelationFilter, ServiceWhereInput>
+    orders?: OrderListRelationFilter
   }
 
   export type ServicePackageOrderByWithRelationInput = {
@@ -15261,6 +15411,7 @@ export namespace Prisma {
     serviceId?: SortOrder
     createdAt?: SortOrder
     service?: ServiceOrderByWithRelationInput
+    orders?: OrderOrderByRelationAggregateInput
   }
 
   export type ServicePackageWhereUniqueInput = Prisma.AtLeast<{
@@ -15277,6 +15428,7 @@ export namespace Prisma {
     serviceId?: StringFilter<"ServicePackage"> | string
     createdAt?: DateTimeFilter<"ServicePackage"> | Date | string
     service?: XOR<ServiceScalarRelationFilter, ServiceWhereInput>
+    orders?: OrderListRelationFilter
   }, "id">
 
   export type ServicePackageOrderByWithAggregationInput = {
@@ -15400,9 +15552,13 @@ export namespace Prisma {
     requirements?: StringNullableFilter<"Order"> | string | null
     createdAt?: DateTimeFilter<"Order"> | Date | string
     serviceId?: StringFilter<"Order"> | string
+    packageId?: StringFilter<"Order"> | string
+    price?: FloatFilter<"Order"> | number
+    deliveryDays?: IntFilter<"Order"> | number
     buyerId?: StringFilter<"Order"> | string
     sellerId?: StringFilter<"Order"> | string
     service?: XOR<ServiceScalarRelationFilter, ServiceWhereInput>
+    package?: XOR<ServicePackageScalarRelationFilter, ServicePackageWhereInput>
     buyer?: XOR<BuyerProfileScalarRelationFilter, BuyerProfileWhereInput>
     seller?: XOR<SellerProfileScalarRelationFilter, SellerProfileWhereInput>
     payment?: XOR<PaymentNullableScalarRelationFilter, PaymentWhereInput> | null
@@ -15415,9 +15571,13 @@ export namespace Prisma {
     requirements?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     serviceId?: SortOrder
+    packageId?: SortOrder
+    price?: SortOrder
+    deliveryDays?: SortOrder
     buyerId?: SortOrder
     sellerId?: SortOrder
     service?: ServiceOrderByWithRelationInput
+    package?: ServicePackageOrderByWithRelationInput
     buyer?: BuyerProfileOrderByWithRelationInput
     seller?: SellerProfileOrderByWithRelationInput
     payment?: PaymentOrderByWithRelationInput
@@ -15433,9 +15593,13 @@ export namespace Prisma {
     requirements?: StringNullableFilter<"Order"> | string | null
     createdAt?: DateTimeFilter<"Order"> | Date | string
     serviceId?: StringFilter<"Order"> | string
+    packageId?: StringFilter<"Order"> | string
+    price?: FloatFilter<"Order"> | number
+    deliveryDays?: IntFilter<"Order"> | number
     buyerId?: StringFilter<"Order"> | string
     sellerId?: StringFilter<"Order"> | string
     service?: XOR<ServiceScalarRelationFilter, ServiceWhereInput>
+    package?: XOR<ServicePackageScalarRelationFilter, ServicePackageWhereInput>
     buyer?: XOR<BuyerProfileScalarRelationFilter, BuyerProfileWhereInput>
     seller?: XOR<SellerProfileScalarRelationFilter, SellerProfileWhereInput>
     payment?: XOR<PaymentNullableScalarRelationFilter, PaymentWhereInput> | null
@@ -15448,11 +15612,16 @@ export namespace Prisma {
     requirements?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     serviceId?: SortOrder
+    packageId?: SortOrder
+    price?: SortOrder
+    deliveryDays?: SortOrder
     buyerId?: SortOrder
     sellerId?: SortOrder
     _count?: OrderCountOrderByAggregateInput
+    _avg?: OrderAvgOrderByAggregateInput
     _max?: OrderMaxOrderByAggregateInput
     _min?: OrderMinOrderByAggregateInput
+    _sum?: OrderSumOrderByAggregateInput
   }
 
   export type OrderScalarWhereWithAggregatesInput = {
@@ -15464,6 +15633,9 @@ export namespace Prisma {
     requirements?: StringNullableWithAggregatesFilter<"Order"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Order"> | Date | string
     serviceId?: StringWithAggregatesFilter<"Order"> | string
+    packageId?: StringWithAggregatesFilter<"Order"> | string
+    price?: FloatWithAggregatesFilter<"Order"> | number
+    deliveryDays?: IntWithAggregatesFilter<"Order"> | number
     buyerId?: StringWithAggregatesFilter<"Order"> | string
     sellerId?: StringWithAggregatesFilter<"Order"> | string
   }
@@ -16026,6 +16198,7 @@ export namespace Prisma {
     type: $Enums.PackageType
     createdAt?: Date | string
     service: ServiceCreateNestedOneWithoutPackagesInput
+    orders?: OrderCreateNestedManyWithoutPackageInput
   }
 
   export type ServicePackageUncheckedCreateInput = {
@@ -16038,6 +16211,7 @@ export namespace Prisma {
     type: $Enums.PackageType
     serviceId: string
     createdAt?: Date | string
+    orders?: OrderUncheckedCreateNestedManyWithoutPackageInput
   }
 
   export type ServicePackageUpdateInput = {
@@ -16050,6 +16224,7 @@ export namespace Prisma {
     type?: EnumPackageTypeFieldUpdateOperationsInput | $Enums.PackageType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     service?: ServiceUpdateOneRequiredWithoutPackagesNestedInput
+    orders?: OrderUpdateManyWithoutPackageNestedInput
   }
 
   export type ServicePackageUncheckedUpdateInput = {
@@ -16062,6 +16237,7 @@ export namespace Prisma {
     type?: EnumPackageTypeFieldUpdateOperationsInput | $Enums.PackageType
     serviceId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    orders?: OrderUncheckedUpdateManyWithoutPackageNestedInput
   }
 
   export type ServicePackageCreateManyInput = {
@@ -16188,7 +16364,10 @@ export namespace Prisma {
     status?: $Enums.OrderStatus
     requirements?: string | null
     createdAt?: Date | string
+    price: number
+    deliveryDays: number
     service: ServiceCreateNestedOneWithoutOrdersInput
+    package: ServicePackageCreateNestedOneWithoutOrdersInput
     buyer: BuyerProfileCreateNestedOneWithoutOrdersInput
     seller: SellerProfileCreateNestedOneWithoutOrdersInput
     payment?: PaymentCreateNestedOneWithoutOrderInput
@@ -16201,6 +16380,9 @@ export namespace Prisma {
     requirements?: string | null
     createdAt?: Date | string
     serviceId: string
+    packageId: string
+    price: number
+    deliveryDays: number
     buyerId: string
     sellerId: string
     payment?: PaymentUncheckedCreateNestedOneWithoutOrderInput
@@ -16212,7 +16394,10 @@ export namespace Prisma {
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     requirements?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    price?: FloatFieldUpdateOperationsInput | number
+    deliveryDays?: IntFieldUpdateOperationsInput | number
     service?: ServiceUpdateOneRequiredWithoutOrdersNestedInput
+    package?: ServicePackageUpdateOneRequiredWithoutOrdersNestedInput
     buyer?: BuyerProfileUpdateOneRequiredWithoutOrdersNestedInput
     seller?: SellerProfileUpdateOneRequiredWithoutOrdersNestedInput
     payment?: PaymentUpdateOneWithoutOrderNestedInput
@@ -16225,6 +16410,9 @@ export namespace Prisma {
     requirements?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     serviceId?: StringFieldUpdateOperationsInput | string
+    packageId?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
+    deliveryDays?: IntFieldUpdateOperationsInput | number
     buyerId?: StringFieldUpdateOperationsInput | string
     sellerId?: StringFieldUpdateOperationsInput | string
     payment?: PaymentUncheckedUpdateOneWithoutOrderNestedInput
@@ -16237,6 +16425,9 @@ export namespace Prisma {
     requirements?: string | null
     createdAt?: Date | string
     serviceId: string
+    packageId: string
+    price: number
+    deliveryDays: number
     buyerId: string
     sellerId: string
   }
@@ -16246,6 +16437,8 @@ export namespace Prisma {
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     requirements?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    price?: FloatFieldUpdateOperationsInput | number
+    deliveryDays?: IntFieldUpdateOperationsInput | number
   }
 
   export type OrderUncheckedUpdateManyInput = {
@@ -16254,6 +16447,9 @@ export namespace Prisma {
     requirements?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     serviceId?: StringFieldUpdateOperationsInput | string
+    packageId?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
+    deliveryDays?: IntFieldUpdateOperationsInput | number
     buyerId?: StringFieldUpdateOperationsInput | string
     sellerId?: StringFieldUpdateOperationsInput | string
   }
@@ -17009,6 +17205,11 @@ export namespace Prisma {
     not?: NestedEnumOrderStatusFilter<$PrismaModel> | $Enums.OrderStatus
   }
 
+  export type ServicePackageScalarRelationFilter = {
+    is?: ServicePackageWhereInput
+    isNot?: ServicePackageWhereInput
+  }
+
   export type BuyerProfileScalarRelationFilter = {
     is?: BuyerProfileWhereInput
     isNot?: BuyerProfileWhereInput
@@ -17030,8 +17231,16 @@ export namespace Prisma {
     requirements?: SortOrder
     createdAt?: SortOrder
     serviceId?: SortOrder
+    packageId?: SortOrder
+    price?: SortOrder
+    deliveryDays?: SortOrder
     buyerId?: SortOrder
     sellerId?: SortOrder
+  }
+
+  export type OrderAvgOrderByAggregateInput = {
+    price?: SortOrder
+    deliveryDays?: SortOrder
   }
 
   export type OrderMaxOrderByAggregateInput = {
@@ -17040,6 +17249,9 @@ export namespace Prisma {
     requirements?: SortOrder
     createdAt?: SortOrder
     serviceId?: SortOrder
+    packageId?: SortOrder
+    price?: SortOrder
+    deliveryDays?: SortOrder
     buyerId?: SortOrder
     sellerId?: SortOrder
   }
@@ -17050,8 +17262,16 @@ export namespace Prisma {
     requirements?: SortOrder
     createdAt?: SortOrder
     serviceId?: SortOrder
+    packageId?: SortOrder
+    price?: SortOrder
+    deliveryDays?: SortOrder
     buyerId?: SortOrder
     sellerId?: SortOrder
+  }
+
+  export type OrderSumOrderByAggregateInput = {
+    price?: SortOrder
+    deliveryDays?: SortOrder
   }
 
   export type EnumOrderStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -17768,6 +17988,20 @@ export namespace Prisma {
     connect?: ServiceWhereUniqueInput
   }
 
+  export type OrderCreateNestedManyWithoutPackageInput = {
+    create?: XOR<OrderCreateWithoutPackageInput, OrderUncheckedCreateWithoutPackageInput> | OrderCreateWithoutPackageInput[] | OrderUncheckedCreateWithoutPackageInput[]
+    connectOrCreate?: OrderCreateOrConnectWithoutPackageInput | OrderCreateOrConnectWithoutPackageInput[]
+    createMany?: OrderCreateManyPackageInputEnvelope
+    connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+  }
+
+  export type OrderUncheckedCreateNestedManyWithoutPackageInput = {
+    create?: XOR<OrderCreateWithoutPackageInput, OrderUncheckedCreateWithoutPackageInput> | OrderCreateWithoutPackageInput[] | OrderUncheckedCreateWithoutPackageInput[]
+    connectOrCreate?: OrderCreateOrConnectWithoutPackageInput | OrderCreateOrConnectWithoutPackageInput[]
+    createMany?: OrderCreateManyPackageInputEnvelope
+    connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -17794,6 +18028,34 @@ export namespace Prisma {
     upsert?: ServiceUpsertWithoutPackagesInput
     connect?: ServiceWhereUniqueInput
     update?: XOR<XOR<ServiceUpdateToOneWithWhereWithoutPackagesInput, ServiceUpdateWithoutPackagesInput>, ServiceUncheckedUpdateWithoutPackagesInput>
+  }
+
+  export type OrderUpdateManyWithoutPackageNestedInput = {
+    create?: XOR<OrderCreateWithoutPackageInput, OrderUncheckedCreateWithoutPackageInput> | OrderCreateWithoutPackageInput[] | OrderUncheckedCreateWithoutPackageInput[]
+    connectOrCreate?: OrderCreateOrConnectWithoutPackageInput | OrderCreateOrConnectWithoutPackageInput[]
+    upsert?: OrderUpsertWithWhereUniqueWithoutPackageInput | OrderUpsertWithWhereUniqueWithoutPackageInput[]
+    createMany?: OrderCreateManyPackageInputEnvelope
+    set?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    disconnect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    delete?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    update?: OrderUpdateWithWhereUniqueWithoutPackageInput | OrderUpdateWithWhereUniqueWithoutPackageInput[]
+    updateMany?: OrderUpdateManyWithWhereWithoutPackageInput | OrderUpdateManyWithWhereWithoutPackageInput[]
+    deleteMany?: OrderScalarWhereInput | OrderScalarWhereInput[]
+  }
+
+  export type OrderUncheckedUpdateManyWithoutPackageNestedInput = {
+    create?: XOR<OrderCreateWithoutPackageInput, OrderUncheckedCreateWithoutPackageInput> | OrderCreateWithoutPackageInput[] | OrderUncheckedCreateWithoutPackageInput[]
+    connectOrCreate?: OrderCreateOrConnectWithoutPackageInput | OrderCreateOrConnectWithoutPackageInput[]
+    upsert?: OrderUpsertWithWhereUniqueWithoutPackageInput | OrderUpsertWithWhereUniqueWithoutPackageInput[]
+    createMany?: OrderCreateManyPackageInputEnvelope
+    set?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    disconnect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    delete?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    update?: OrderUpdateWithWhereUniqueWithoutPackageInput | OrderUpdateWithWhereUniqueWithoutPackageInput[]
+    updateMany?: OrderUpdateManyWithWhereWithoutPackageInput | OrderUpdateManyWithWhereWithoutPackageInput[]
+    deleteMany?: OrderScalarWhereInput | OrderScalarWhereInput[]
   }
 
   export type ServiceCreateimagesInput = {
@@ -18003,6 +18265,12 @@ export namespace Prisma {
     connect?: ServiceWhereUniqueInput
   }
 
+  export type ServicePackageCreateNestedOneWithoutOrdersInput = {
+    create?: XOR<ServicePackageCreateWithoutOrdersInput, ServicePackageUncheckedCreateWithoutOrdersInput>
+    connectOrCreate?: ServicePackageCreateOrConnectWithoutOrdersInput
+    connect?: ServicePackageWhereUniqueInput
+  }
+
   export type BuyerProfileCreateNestedOneWithoutOrdersInput = {
     create?: XOR<BuyerProfileCreateWithoutOrdersInput, BuyerProfileUncheckedCreateWithoutOrdersInput>
     connectOrCreate?: BuyerProfileCreateOrConnectWithoutOrdersInput
@@ -18049,6 +18317,14 @@ export namespace Prisma {
     upsert?: ServiceUpsertWithoutOrdersInput
     connect?: ServiceWhereUniqueInput
     update?: XOR<XOR<ServiceUpdateToOneWithWhereWithoutOrdersInput, ServiceUpdateWithoutOrdersInput>, ServiceUncheckedUpdateWithoutOrdersInput>
+  }
+
+  export type ServicePackageUpdateOneRequiredWithoutOrdersNestedInput = {
+    create?: XOR<ServicePackageCreateWithoutOrdersInput, ServicePackageUncheckedCreateWithoutOrdersInput>
+    connectOrCreate?: ServicePackageCreateOrConnectWithoutOrdersInput
+    upsert?: ServicePackageUpsertWithoutOrdersInput
+    connect?: ServicePackageWhereUniqueInput
+    update?: XOR<XOR<ServicePackageUpdateToOneWithWhereWithoutOrdersInput, ServicePackageUpdateWithoutOrdersInput>, ServicePackageUncheckedUpdateWithoutOrdersInput>
   }
 
   export type BuyerProfileUpdateOneRequiredWithoutOrdersNestedInput = {
@@ -18729,7 +19005,10 @@ export namespace Prisma {
     status?: $Enums.OrderStatus
     requirements?: string | null
     createdAt?: Date | string
+    price: number
+    deliveryDays: number
     service: ServiceCreateNestedOneWithoutOrdersInput
+    package: ServicePackageCreateNestedOneWithoutOrdersInput
     seller: SellerProfileCreateNestedOneWithoutOrdersInput
     payment?: PaymentCreateNestedOneWithoutOrderInput
     review?: ReviewCreateNestedOneWithoutOrderInput
@@ -18741,6 +19020,9 @@ export namespace Prisma {
     requirements?: string | null
     createdAt?: Date | string
     serviceId: string
+    packageId: string
+    price: number
+    deliveryDays: number
     sellerId: string
     payment?: PaymentUncheckedCreateNestedOneWithoutOrderInput
     review?: ReviewUncheckedCreateNestedOneWithoutOrderInput
@@ -18921,6 +19203,9 @@ export namespace Prisma {
     requirements?: StringNullableFilter<"Order"> | string | null
     createdAt?: DateTimeFilter<"Order"> | Date | string
     serviceId?: StringFilter<"Order"> | string
+    packageId?: StringFilter<"Order"> | string
+    price?: FloatFilter<"Order"> | number
+    deliveryDays?: IntFilter<"Order"> | number
     buyerId?: StringFilter<"Order"> | string
     sellerId?: StringFilter<"Order"> | string
   }
@@ -19076,7 +19361,10 @@ export namespace Prisma {
     status?: $Enums.OrderStatus
     requirements?: string | null
     createdAt?: Date | string
+    price: number
+    deliveryDays: number
     service: ServiceCreateNestedOneWithoutOrdersInput
+    package: ServicePackageCreateNestedOneWithoutOrdersInput
     buyer: BuyerProfileCreateNestedOneWithoutOrdersInput
     payment?: PaymentCreateNestedOneWithoutOrderInput
     review?: ReviewCreateNestedOneWithoutOrderInput
@@ -19088,6 +19376,9 @@ export namespace Prisma {
     requirements?: string | null
     createdAt?: Date | string
     serviceId: string
+    packageId: string
+    price: number
+    deliveryDays: number
     buyerId: string
     payment?: PaymentUncheckedCreateNestedOneWithoutOrderInput
     review?: ReviewUncheckedCreateNestedOneWithoutOrderInput
@@ -19333,6 +19624,44 @@ export namespace Prisma {
     create: XOR<ServiceCreateWithoutPackagesInput, ServiceUncheckedCreateWithoutPackagesInput>
   }
 
+  export type OrderCreateWithoutPackageInput = {
+    id?: string
+    status?: $Enums.OrderStatus
+    requirements?: string | null
+    createdAt?: Date | string
+    price: number
+    deliveryDays: number
+    service: ServiceCreateNestedOneWithoutOrdersInput
+    buyer: BuyerProfileCreateNestedOneWithoutOrdersInput
+    seller: SellerProfileCreateNestedOneWithoutOrdersInput
+    payment?: PaymentCreateNestedOneWithoutOrderInput
+    review?: ReviewCreateNestedOneWithoutOrderInput
+  }
+
+  export type OrderUncheckedCreateWithoutPackageInput = {
+    id?: string
+    status?: $Enums.OrderStatus
+    requirements?: string | null
+    createdAt?: Date | string
+    serviceId: string
+    price: number
+    deliveryDays: number
+    buyerId: string
+    sellerId: string
+    payment?: PaymentUncheckedCreateNestedOneWithoutOrderInput
+    review?: ReviewUncheckedCreateNestedOneWithoutOrderInput
+  }
+
+  export type OrderCreateOrConnectWithoutPackageInput = {
+    where: OrderWhereUniqueInput
+    create: XOR<OrderCreateWithoutPackageInput, OrderUncheckedCreateWithoutPackageInput>
+  }
+
+  export type OrderCreateManyPackageInputEnvelope = {
+    data: OrderCreateManyPackageInput | OrderCreateManyPackageInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ServiceUpsertWithoutPackagesInput = {
     update: XOR<ServiceUpdateWithoutPackagesInput, ServiceUncheckedUpdateWithoutPackagesInput>
     create: XOR<ServiceCreateWithoutPackagesInput, ServiceUncheckedCreateWithoutPackagesInput>
@@ -19368,6 +19697,22 @@ export namespace Prisma {
     orders?: OrderUncheckedUpdateManyWithoutServiceNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutServiceNestedInput
     savedBy?: BuyerProfileUncheckedUpdateManyWithoutSavedServicesNestedInput
+  }
+
+  export type OrderUpsertWithWhereUniqueWithoutPackageInput = {
+    where: OrderWhereUniqueInput
+    update: XOR<OrderUpdateWithoutPackageInput, OrderUncheckedUpdateWithoutPackageInput>
+    create: XOR<OrderCreateWithoutPackageInput, OrderUncheckedCreateWithoutPackageInput>
+  }
+
+  export type OrderUpdateWithWhereUniqueWithoutPackageInput = {
+    where: OrderWhereUniqueInput
+    data: XOR<OrderUpdateWithoutPackageInput, OrderUncheckedUpdateWithoutPackageInput>
+  }
+
+  export type OrderUpdateManyWithWhereWithoutPackageInput = {
+    where: OrderScalarWhereInput
+    data: XOR<OrderUpdateManyMutationInput, OrderUncheckedUpdateManyWithoutPackageInput>
   }
 
   export type SellerProfileCreateWithoutServicesInput = {
@@ -19427,6 +19772,7 @@ export namespace Prisma {
     revisions?: number | null
     type: $Enums.PackageType
     createdAt?: Date | string
+    orders?: OrderCreateNestedManyWithoutPackageInput
   }
 
   export type ServicePackageUncheckedCreateWithoutServiceInput = {
@@ -19438,6 +19784,7 @@ export namespace Prisma {
     revisions?: number | null
     type: $Enums.PackageType
     createdAt?: Date | string
+    orders?: OrderUncheckedCreateNestedManyWithoutPackageInput
   }
 
   export type ServicePackageCreateOrConnectWithoutServiceInput = {
@@ -19455,6 +19802,9 @@ export namespace Prisma {
     status?: $Enums.OrderStatus
     requirements?: string | null
     createdAt?: Date | string
+    price: number
+    deliveryDays: number
+    package: ServicePackageCreateNestedOneWithoutOrdersInput
     buyer: BuyerProfileCreateNestedOneWithoutOrdersInput
     seller: SellerProfileCreateNestedOneWithoutOrdersInput
     payment?: PaymentCreateNestedOneWithoutOrderInput
@@ -19466,6 +19816,9 @@ export namespace Prisma {
     status?: $Enums.OrderStatus
     requirements?: string | null
     createdAt?: Date | string
+    packageId: string
+    price: number
+    deliveryDays: number
     buyerId: string
     sellerId: string
     payment?: PaymentUncheckedCreateNestedOneWithoutOrderInput
@@ -19723,6 +20076,35 @@ export namespace Prisma {
     create: XOR<ServiceCreateWithoutOrdersInput, ServiceUncheckedCreateWithoutOrdersInput>
   }
 
+  export type ServicePackageCreateWithoutOrdersInput = {
+    id?: string
+    title: string
+    description?: string | null
+    price: number
+    deliveryDays: number
+    revisions?: number | null
+    type: $Enums.PackageType
+    createdAt?: Date | string
+    service: ServiceCreateNestedOneWithoutPackagesInput
+  }
+
+  export type ServicePackageUncheckedCreateWithoutOrdersInput = {
+    id?: string
+    title: string
+    description?: string | null
+    price: number
+    deliveryDays: number
+    revisions?: number | null
+    type: $Enums.PackageType
+    serviceId: string
+    createdAt?: Date | string
+  }
+
+  export type ServicePackageCreateOrConnectWithoutOrdersInput = {
+    where: ServicePackageWhereUniqueInput
+    create: XOR<ServicePackageCreateWithoutOrdersInput, ServicePackageUncheckedCreateWithoutOrdersInput>
+  }
+
   export type BuyerProfileCreateWithoutOrdersInput = {
     id?: string
     bio?: string | null
@@ -19866,6 +20248,41 @@ export namespace Prisma {
     savedBy?: BuyerProfileUncheckedUpdateManyWithoutSavedServicesNestedInput
   }
 
+  export type ServicePackageUpsertWithoutOrdersInput = {
+    update: XOR<ServicePackageUpdateWithoutOrdersInput, ServicePackageUncheckedUpdateWithoutOrdersInput>
+    create: XOR<ServicePackageCreateWithoutOrdersInput, ServicePackageUncheckedCreateWithoutOrdersInput>
+    where?: ServicePackageWhereInput
+  }
+
+  export type ServicePackageUpdateToOneWithWhereWithoutOrdersInput = {
+    where?: ServicePackageWhereInput
+    data: XOR<ServicePackageUpdateWithoutOrdersInput, ServicePackageUncheckedUpdateWithoutOrdersInput>
+  }
+
+  export type ServicePackageUpdateWithoutOrdersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: FloatFieldUpdateOperationsInput | number
+    deliveryDays?: IntFieldUpdateOperationsInput | number
+    revisions?: NullableIntFieldUpdateOperationsInput | number | null
+    type?: EnumPackageTypeFieldUpdateOperationsInput | $Enums.PackageType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    service?: ServiceUpdateOneRequiredWithoutPackagesNestedInput
+  }
+
+  export type ServicePackageUncheckedUpdateWithoutOrdersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: FloatFieldUpdateOperationsInput | number
+    deliveryDays?: IntFieldUpdateOperationsInput | number
+    revisions?: NullableIntFieldUpdateOperationsInput | number | null
+    type?: EnumPackageTypeFieldUpdateOperationsInput | $Enums.PackageType
+    serviceId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type BuyerProfileUpsertWithoutOrdersInput = {
     update: XOR<BuyerProfileUpdateWithoutOrdersInput, BuyerProfileUncheckedUpdateWithoutOrdersInput>
     create: XOR<BuyerProfileCreateWithoutOrdersInput, BuyerProfileUncheckedCreateWithoutOrdersInput>
@@ -20001,7 +20418,10 @@ export namespace Prisma {
     status?: $Enums.OrderStatus
     requirements?: string | null
     createdAt?: Date | string
+    price: number
+    deliveryDays: number
     service: ServiceCreateNestedOneWithoutOrdersInput
+    package: ServicePackageCreateNestedOneWithoutOrdersInput
     buyer: BuyerProfileCreateNestedOneWithoutOrdersInput
     seller: SellerProfileCreateNestedOneWithoutOrdersInput
     review?: ReviewCreateNestedOneWithoutOrderInput
@@ -20013,6 +20433,9 @@ export namespace Prisma {
     requirements?: string | null
     createdAt?: Date | string
     serviceId: string
+    packageId: string
+    price: number
+    deliveryDays: number
     buyerId: string
     sellerId: string
     review?: ReviewUncheckedCreateNestedOneWithoutOrderInput
@@ -20039,7 +20462,10 @@ export namespace Prisma {
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     requirements?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    price?: FloatFieldUpdateOperationsInput | number
+    deliveryDays?: IntFieldUpdateOperationsInput | number
     service?: ServiceUpdateOneRequiredWithoutOrdersNestedInput
+    package?: ServicePackageUpdateOneRequiredWithoutOrdersNestedInput
     buyer?: BuyerProfileUpdateOneRequiredWithoutOrdersNestedInput
     seller?: SellerProfileUpdateOneRequiredWithoutOrdersNestedInput
     review?: ReviewUpdateOneWithoutOrderNestedInput
@@ -20051,6 +20477,9 @@ export namespace Prisma {
     requirements?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     serviceId?: StringFieldUpdateOperationsInput | string
+    packageId?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
+    deliveryDays?: IntFieldUpdateOperationsInput | number
     buyerId?: StringFieldUpdateOperationsInput | string
     sellerId?: StringFieldUpdateOperationsInput | string
     review?: ReviewUncheckedUpdateOneWithoutOrderNestedInput
@@ -20123,7 +20552,10 @@ export namespace Prisma {
     status?: $Enums.OrderStatus
     requirements?: string | null
     createdAt?: Date | string
+    price: number
+    deliveryDays: number
     service: ServiceCreateNestedOneWithoutOrdersInput
+    package: ServicePackageCreateNestedOneWithoutOrdersInput
     buyer: BuyerProfileCreateNestedOneWithoutOrdersInput
     seller: SellerProfileCreateNestedOneWithoutOrdersInput
     payment?: PaymentCreateNestedOneWithoutOrderInput
@@ -20135,6 +20567,9 @@ export namespace Prisma {
     requirements?: string | null
     createdAt?: Date | string
     serviceId: string
+    packageId: string
+    price: number
+    deliveryDays: number
     buyerId: string
     sellerId: string
     payment?: PaymentUncheckedCreateNestedOneWithoutOrderInput
@@ -20235,7 +20670,10 @@ export namespace Prisma {
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     requirements?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    price?: FloatFieldUpdateOperationsInput | number
+    deliveryDays?: IntFieldUpdateOperationsInput | number
     service?: ServiceUpdateOneRequiredWithoutOrdersNestedInput
+    package?: ServicePackageUpdateOneRequiredWithoutOrdersNestedInput
     buyer?: BuyerProfileUpdateOneRequiredWithoutOrdersNestedInput
     seller?: SellerProfileUpdateOneRequiredWithoutOrdersNestedInput
     payment?: PaymentUpdateOneWithoutOrderNestedInput
@@ -20247,6 +20685,9 @@ export namespace Prisma {
     requirements?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     serviceId?: StringFieldUpdateOperationsInput | string
+    packageId?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
+    deliveryDays?: IntFieldUpdateOperationsInput | number
     buyerId?: StringFieldUpdateOperationsInput | string
     sellerId?: StringFieldUpdateOperationsInput | string
     payment?: PaymentUncheckedUpdateOneWithoutOrderNestedInput
@@ -20616,6 +21057,9 @@ export namespace Prisma {
     requirements?: string | null
     createdAt?: Date | string
     serviceId: string
+    packageId: string
+    price: number
+    deliveryDays: number
     sellerId: string
   }
 
@@ -20683,7 +21127,10 @@ export namespace Prisma {
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     requirements?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    price?: FloatFieldUpdateOperationsInput | number
+    deliveryDays?: IntFieldUpdateOperationsInput | number
     service?: ServiceUpdateOneRequiredWithoutOrdersNestedInput
+    package?: ServicePackageUpdateOneRequiredWithoutOrdersNestedInput
     seller?: SellerProfileUpdateOneRequiredWithoutOrdersNestedInput
     payment?: PaymentUpdateOneWithoutOrderNestedInput
     review?: ReviewUpdateOneWithoutOrderNestedInput
@@ -20695,6 +21142,9 @@ export namespace Prisma {
     requirements?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     serviceId?: StringFieldUpdateOperationsInput | string
+    packageId?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
+    deliveryDays?: IntFieldUpdateOperationsInput | number
     sellerId?: StringFieldUpdateOperationsInput | string
     payment?: PaymentUncheckedUpdateOneWithoutOrderNestedInput
     review?: ReviewUncheckedUpdateOneWithoutOrderNestedInput
@@ -20706,6 +21156,9 @@ export namespace Prisma {
     requirements?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     serviceId?: StringFieldUpdateOperationsInput | string
+    packageId?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
+    deliveryDays?: IntFieldUpdateOperationsInput | number
     sellerId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -20795,6 +21248,9 @@ export namespace Prisma {
     requirements?: string | null
     createdAt?: Date | string
     serviceId: string
+    packageId: string
+    price: number
+    deliveryDays: number
     buyerId: string
   }
 
@@ -20852,7 +21308,10 @@ export namespace Prisma {
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     requirements?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    price?: FloatFieldUpdateOperationsInput | number
+    deliveryDays?: IntFieldUpdateOperationsInput | number
     service?: ServiceUpdateOneRequiredWithoutOrdersNestedInput
+    package?: ServicePackageUpdateOneRequiredWithoutOrdersNestedInput
     buyer?: BuyerProfileUpdateOneRequiredWithoutOrdersNestedInput
     payment?: PaymentUpdateOneWithoutOrderNestedInput
     review?: ReviewUpdateOneWithoutOrderNestedInput
@@ -20864,6 +21323,9 @@ export namespace Prisma {
     requirements?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     serviceId?: StringFieldUpdateOperationsInput | string
+    packageId?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
+    deliveryDays?: IntFieldUpdateOperationsInput | number
     buyerId?: StringFieldUpdateOperationsInput | string
     payment?: PaymentUncheckedUpdateOneWithoutOrderNestedInput
     review?: ReviewUncheckedUpdateOneWithoutOrderNestedInput
@@ -20875,6 +21337,9 @@ export namespace Prisma {
     requirements?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     serviceId?: StringFieldUpdateOperationsInput | string
+    packageId?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
+    deliveryDays?: IntFieldUpdateOperationsInput | number
     buyerId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -20966,6 +21431,58 @@ export namespace Prisma {
     sellerId?: StringFieldUpdateOperationsInput | string
   }
 
+  export type OrderCreateManyPackageInput = {
+    id?: string
+    status?: $Enums.OrderStatus
+    requirements?: string | null
+    createdAt?: Date | string
+    serviceId: string
+    price: number
+    deliveryDays: number
+    buyerId: string
+    sellerId: string
+  }
+
+  export type OrderUpdateWithoutPackageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    requirements?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    price?: FloatFieldUpdateOperationsInput | number
+    deliveryDays?: IntFieldUpdateOperationsInput | number
+    service?: ServiceUpdateOneRequiredWithoutOrdersNestedInput
+    buyer?: BuyerProfileUpdateOneRequiredWithoutOrdersNestedInput
+    seller?: SellerProfileUpdateOneRequiredWithoutOrdersNestedInput
+    payment?: PaymentUpdateOneWithoutOrderNestedInput
+    review?: ReviewUpdateOneWithoutOrderNestedInput
+  }
+
+  export type OrderUncheckedUpdateWithoutPackageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    requirements?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    serviceId?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
+    deliveryDays?: IntFieldUpdateOperationsInput | number
+    buyerId?: StringFieldUpdateOperationsInput | string
+    sellerId?: StringFieldUpdateOperationsInput | string
+    payment?: PaymentUncheckedUpdateOneWithoutOrderNestedInput
+    review?: ReviewUncheckedUpdateOneWithoutOrderNestedInput
+  }
+
+  export type OrderUncheckedUpdateManyWithoutPackageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+    requirements?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    serviceId?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
+    deliveryDays?: IntFieldUpdateOperationsInput | number
+    buyerId?: StringFieldUpdateOperationsInput | string
+    sellerId?: StringFieldUpdateOperationsInput | string
+  }
+
   export type ServicePackageCreateManyServiceInput = {
     id?: string
     title: string
@@ -20982,6 +21499,9 @@ export namespace Prisma {
     status?: $Enums.OrderStatus
     requirements?: string | null
     createdAt?: Date | string
+    packageId: string
+    price: number
+    deliveryDays: number
     buyerId: string
     sellerId: string
   }
@@ -21004,6 +21524,7 @@ export namespace Prisma {
     revisions?: NullableIntFieldUpdateOperationsInput | number | null
     type?: EnumPackageTypeFieldUpdateOperationsInput | $Enums.PackageType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    orders?: OrderUpdateManyWithoutPackageNestedInput
   }
 
   export type ServicePackageUncheckedUpdateWithoutServiceInput = {
@@ -21015,6 +21536,7 @@ export namespace Prisma {
     revisions?: NullableIntFieldUpdateOperationsInput | number | null
     type?: EnumPackageTypeFieldUpdateOperationsInput | $Enums.PackageType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    orders?: OrderUncheckedUpdateManyWithoutPackageNestedInput
   }
 
   export type ServicePackageUncheckedUpdateManyWithoutServiceInput = {
@@ -21033,6 +21555,9 @@ export namespace Prisma {
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     requirements?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    price?: FloatFieldUpdateOperationsInput | number
+    deliveryDays?: IntFieldUpdateOperationsInput | number
+    package?: ServicePackageUpdateOneRequiredWithoutOrdersNestedInput
     buyer?: BuyerProfileUpdateOneRequiredWithoutOrdersNestedInput
     seller?: SellerProfileUpdateOneRequiredWithoutOrdersNestedInput
     payment?: PaymentUpdateOneWithoutOrderNestedInput
@@ -21044,6 +21569,9 @@ export namespace Prisma {
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     requirements?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    packageId?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
+    deliveryDays?: IntFieldUpdateOperationsInput | number
     buyerId?: StringFieldUpdateOperationsInput | string
     sellerId?: StringFieldUpdateOperationsInput | string
     payment?: PaymentUncheckedUpdateOneWithoutOrderNestedInput
@@ -21055,6 +21583,9 @@ export namespace Prisma {
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     requirements?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    packageId?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
+    deliveryDays?: IntFieldUpdateOperationsInput | number
     buyerId?: StringFieldUpdateOperationsInput | string
     sellerId?: StringFieldUpdateOperationsInput | string
   }

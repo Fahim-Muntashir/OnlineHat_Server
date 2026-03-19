@@ -183,6 +183,9 @@ exports.Prisma.OrderScalarFieldEnum = {
   requirements: 'requirements',
   createdAt: 'createdAt',
   serviceId: 'serviceId',
+  packageId: 'packageId',
+  price: 'price',
+  deliveryDays: 'deliveryDays',
   buyerId: 'buyerId',
   sellerId: 'sellerId'
 };

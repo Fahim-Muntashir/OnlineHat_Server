@@ -103,6 +103,8 @@ model ServicePackage {
   serviceId String
   service   Service @relation(fields: [serviceId], references: [id])
 
+  orders Order[] // ✅ ADD THIS
+
   createdAt DateTime @default(now())
 }
 
@@ -134,6 +136,14 @@ model Order {
 
   serviceId String
   service   Service @relation(fields: [serviceId], references: [id])
+
+  // ✅ CRITICAL (what user selected)
+  packageId String
+  package   ServicePackage @relation(fields: [packageId], references: [id])
+
+  // ✅ SNAPSHOT (freeze data at order time)
+  price        Float
+  deliveryDays Int
 
   buyerId String
   buyer   BuyerProfile @relation("BuyerOrders", fields: [buyerId], references: [id])

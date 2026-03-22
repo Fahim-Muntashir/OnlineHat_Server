@@ -174,7 +174,9 @@ exports.Prisma.ServiceScalarFieldEnum = {
   images: 'images',
   createdAt: 'createdAt',
   sellerId: 'sellerId',
-  categoryId: 'categoryId'
+  categoryId: 'categoryId',
+  avgRating: 'avgRating',
+  totalReviews: 'totalReviews'
 };
 
 exports.Prisma.OrderScalarFieldEnum = {

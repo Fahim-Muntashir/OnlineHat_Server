@@ -7916,8 +7916,20 @@ export namespace Prisma {
 
   export type AggregateService = {
     _count: ServiceCountAggregateOutputType | null
+    _avg: ServiceAvgAggregateOutputType | null
+    _sum: ServiceSumAggregateOutputType | null
     _min: ServiceMinAggregateOutputType | null
     _max: ServiceMaxAggregateOutputType | null
+  }
+
+  export type ServiceAvgAggregateOutputType = {
+    avgRating: number | null
+    totalReviews: number | null
+  }
+
+  export type ServiceSumAggregateOutputType = {
+    avgRating: number | null
+    totalReviews: number | null
   }
 
   export type ServiceMinAggregateOutputType = {
@@ -7927,6 +7939,8 @@ export namespace Prisma {
     createdAt: Date | null
     sellerId: string | null
     categoryId: string | null
+    avgRating: number | null
+    totalReviews: number | null
   }
 
   export type ServiceMaxAggregateOutputType = {
@@ -7936,6 +7950,8 @@ export namespace Prisma {
     createdAt: Date | null
     sellerId: string | null
     categoryId: string | null
+    avgRating: number | null
+    totalReviews: number | null
   }
 
   export type ServiceCountAggregateOutputType = {
@@ -7946,9 +7962,21 @@ export namespace Prisma {
     createdAt: number
     sellerId: number
     categoryId: number
+    avgRating: number
+    totalReviews: number
     _all: number
   }
 
+
+  export type ServiceAvgAggregateInputType = {
+    avgRating?: true
+    totalReviews?: true
+  }
+
+  export type ServiceSumAggregateInputType = {
+    avgRating?: true
+    totalReviews?: true
+  }
 
   export type ServiceMinAggregateInputType = {
     id?: true
@@ -7957,6 +7985,8 @@ export namespace Prisma {
     createdAt?: true
     sellerId?: true
     categoryId?: true
+    avgRating?: true
+    totalReviews?: true
   }
 
   export type ServiceMaxAggregateInputType = {
@@ -7966,6 +7996,8 @@ export namespace Prisma {
     createdAt?: true
     sellerId?: true
     categoryId?: true
+    avgRating?: true
+    totalReviews?: true
   }
 
   export type ServiceCountAggregateInputType = {
@@ -7976,6 +8008,8 @@ export namespace Prisma {
     createdAt?: true
     sellerId?: true
     categoryId?: true
+    avgRating?: true
+    totalReviews?: true
     _all?: true
   }
 
@@ -8017,6 +8051,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: ServiceAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ServiceSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: ServiceMinAggregateInputType
@@ -8047,6 +8093,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: ServiceCountAggregateInputType | true
+    _avg?: ServiceAvgAggregateInputType
+    _sum?: ServiceSumAggregateInputType
     _min?: ServiceMinAggregateInputType
     _max?: ServiceMaxAggregateInputType
   }
@@ -8059,7 +8107,11 @@ export namespace Prisma {
     createdAt: Date
     sellerId: string
     categoryId: string
+    avgRating: number
+    totalReviews: number
     _count: ServiceCountAggregateOutputType | null
+    _avg: ServiceAvgAggregateOutputType | null
+    _sum: ServiceSumAggregateOutputType | null
     _min: ServiceMinAggregateOutputType | null
     _max: ServiceMaxAggregateOutputType | null
   }
@@ -8086,6 +8138,8 @@ export namespace Prisma {
     createdAt?: boolean
     sellerId?: boolean
     categoryId?: boolean
+    avgRating?: boolean
+    totalReviews?: boolean
     seller?: boolean | SellerProfileDefaultArgs<ExtArgs>
     category?: boolean | CategoryDefaultArgs<ExtArgs>
     packages?: boolean | Service$packagesArgs<ExtArgs>
@@ -8103,6 +8157,8 @@ export namespace Prisma {
     createdAt?: boolean
     sellerId?: boolean
     categoryId?: boolean
+    avgRating?: boolean
+    totalReviews?: boolean
     seller?: boolean | SellerProfileDefaultArgs<ExtArgs>
     category?: boolean | CategoryDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["service"]>
@@ -8115,6 +8171,8 @@ export namespace Prisma {
     createdAt?: boolean
     sellerId?: boolean
     categoryId?: boolean
+    avgRating?: boolean
+    totalReviews?: boolean
     seller?: boolean | SellerProfileDefaultArgs<ExtArgs>
     category?: boolean | CategoryDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["service"]>
@@ -8127,9 +8185,11 @@ export namespace Prisma {
     createdAt?: boolean
     sellerId?: boolean
     categoryId?: boolean
+    avgRating?: boolean
+    totalReviews?: boolean
   }
 
-  export type ServiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "images" | "createdAt" | "sellerId" | "categoryId", ExtArgs["result"]["service"]>
+  export type ServiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "images" | "createdAt" | "sellerId" | "categoryId" | "avgRating" | "totalReviews", ExtArgs["result"]["service"]>
   export type ServiceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     seller?: boolean | SellerProfileDefaultArgs<ExtArgs>
     category?: boolean | CategoryDefaultArgs<ExtArgs>
@@ -8166,6 +8226,8 @@ export namespace Prisma {
       createdAt: Date
       sellerId: string
       categoryId: string
+      avgRating: number
+      totalReviews: number
     }, ExtArgs["result"]["service"]>
     composites: {}
   }
@@ -8602,6 +8664,8 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Service", 'DateTime'>
     readonly sellerId: FieldRef<"Service", 'String'>
     readonly categoryId: FieldRef<"Service", 'String'>
+    readonly avgRating: FieldRef<"Service", 'Float'>
+    readonly totalReviews: FieldRef<"Service", 'Int'>
   }
     
 
@@ -14903,7 +14967,9 @@ export namespace Prisma {
     images: 'images',
     createdAt: 'createdAt',
     sellerId: 'sellerId',
-    categoryId: 'categoryId'
+    categoryId: 'categoryId',
+    avgRating: 'avgRating',
+    totalReviews: 'totalReviews'
   };
 
   export type ServiceScalarFieldEnum = (typeof ServiceScalarFieldEnum)[keyof typeof ServiceScalarFieldEnum]
@@ -15474,6 +15540,8 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Service"> | Date | string
     sellerId?: StringFilter<"Service"> | string
     categoryId?: StringFilter<"Service"> | string
+    avgRating?: FloatFilter<"Service"> | number
+    totalReviews?: IntFilter<"Service"> | number
     seller?: XOR<SellerProfileScalarRelationFilter, SellerProfileWhereInput>
     category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
     packages?: ServicePackageListRelationFilter
@@ -15490,6 +15558,8 @@ export namespace Prisma {
     createdAt?: SortOrder
     sellerId?: SortOrder
     categoryId?: SortOrder
+    avgRating?: SortOrder
+    totalReviews?: SortOrder
     seller?: SellerProfileOrderByWithRelationInput
     category?: CategoryOrderByWithRelationInput
     packages?: ServicePackageOrderByRelationAggregateInput
@@ -15509,6 +15579,8 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Service"> | Date | string
     sellerId?: StringFilter<"Service"> | string
     categoryId?: StringFilter<"Service"> | string
+    avgRating?: FloatFilter<"Service"> | number
+    totalReviews?: IntFilter<"Service"> | number
     seller?: XOR<SellerProfileScalarRelationFilter, SellerProfileWhereInput>
     category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
     packages?: ServicePackageListRelationFilter
@@ -15525,9 +15597,13 @@ export namespace Prisma {
     createdAt?: SortOrder
     sellerId?: SortOrder
     categoryId?: SortOrder
+    avgRating?: SortOrder
+    totalReviews?: SortOrder
     _count?: ServiceCountOrderByAggregateInput
+    _avg?: ServiceAvgOrderByAggregateInput
     _max?: ServiceMaxOrderByAggregateInput
     _min?: ServiceMinOrderByAggregateInput
+    _sum?: ServiceSumOrderByAggregateInput
   }
 
   export type ServiceScalarWhereWithAggregatesInput = {
@@ -15541,6 +15617,8 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Service"> | Date | string
     sellerId?: StringWithAggregatesFilter<"Service"> | string
     categoryId?: StringWithAggregatesFilter<"Service"> | string
+    avgRating?: FloatWithAggregatesFilter<"Service"> | number
+    totalReviews?: IntWithAggregatesFilter<"Service"> | number
   }
 
   export type OrderWhereInput = {
@@ -16281,6 +16359,8 @@ export namespace Prisma {
     description: string
     images?: ServiceCreateimagesInput | string[]
     createdAt?: Date | string
+    avgRating?: number
+    totalReviews?: number
     seller: SellerProfileCreateNestedOneWithoutServicesInput
     category: CategoryCreateNestedOneWithoutServicesInput
     packages?: ServicePackageCreateNestedManyWithoutServiceInput
@@ -16297,6 +16377,8 @@ export namespace Prisma {
     createdAt?: Date | string
     sellerId: string
     categoryId: string
+    avgRating?: number
+    totalReviews?: number
     packages?: ServicePackageUncheckedCreateNestedManyWithoutServiceInput
     orders?: OrderUncheckedCreateNestedManyWithoutServiceInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutServiceInput
@@ -16309,6 +16391,8 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     images?: ServiceUpdateimagesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    avgRating?: FloatFieldUpdateOperationsInput | number
+    totalReviews?: IntFieldUpdateOperationsInput | number
     seller?: SellerProfileUpdateOneRequiredWithoutServicesNestedInput
     category?: CategoryUpdateOneRequiredWithoutServicesNestedInput
     packages?: ServicePackageUpdateManyWithoutServiceNestedInput
@@ -16325,6 +16409,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sellerId?: StringFieldUpdateOperationsInput | string
     categoryId?: StringFieldUpdateOperationsInput | string
+    avgRating?: FloatFieldUpdateOperationsInput | number
+    totalReviews?: IntFieldUpdateOperationsInput | number
     packages?: ServicePackageUncheckedUpdateManyWithoutServiceNestedInput
     orders?: OrderUncheckedUpdateManyWithoutServiceNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutServiceNestedInput
@@ -16339,6 +16425,8 @@ export namespace Prisma {
     createdAt?: Date | string
     sellerId: string
     categoryId: string
+    avgRating?: number
+    totalReviews?: number
   }
 
   export type ServiceUpdateManyMutationInput = {
@@ -16347,6 +16435,8 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     images?: ServiceUpdateimagesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    avgRating?: FloatFieldUpdateOperationsInput | number
+    totalReviews?: IntFieldUpdateOperationsInput | number
   }
 
   export type ServiceUncheckedUpdateManyInput = {
@@ -16357,6 +16447,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sellerId?: StringFieldUpdateOperationsInput | string
     categoryId?: StringFieldUpdateOperationsInput | string
+    avgRating?: FloatFieldUpdateOperationsInput | number
+    totalReviews?: IntFieldUpdateOperationsInput | number
   }
 
   export type OrderCreateInput = {
@@ -17178,6 +17270,13 @@ export namespace Prisma {
     createdAt?: SortOrder
     sellerId?: SortOrder
     categoryId?: SortOrder
+    avgRating?: SortOrder
+    totalReviews?: SortOrder
+  }
+
+  export type ServiceAvgOrderByAggregateInput = {
+    avgRating?: SortOrder
+    totalReviews?: SortOrder
   }
 
   export type ServiceMaxOrderByAggregateInput = {
@@ -17187,6 +17286,8 @@ export namespace Prisma {
     createdAt?: SortOrder
     sellerId?: SortOrder
     categoryId?: SortOrder
+    avgRating?: SortOrder
+    totalReviews?: SortOrder
   }
 
   export type ServiceMinOrderByAggregateInput = {
@@ -17196,6 +17297,13 @@ export namespace Prisma {
     createdAt?: SortOrder
     sellerId?: SortOrder
     categoryId?: SortOrder
+    avgRating?: SortOrder
+    totalReviews?: SortOrder
+  }
+
+  export type ServiceSumOrderByAggregateInput = {
+    avgRating?: SortOrder
+    totalReviews?: SortOrder
   }
 
   export type EnumOrderStatusFilter<$PrismaModel = never> = {
@@ -18975,6 +19083,8 @@ export namespace Prisma {
     description: string
     images?: ServiceCreateimagesInput | string[]
     createdAt?: Date | string
+    avgRating?: number
+    totalReviews?: number
     seller: SellerProfileCreateNestedOneWithoutServicesInput
     category: CategoryCreateNestedOneWithoutServicesInput
     packages?: ServicePackageCreateNestedManyWithoutServiceInput
@@ -18990,6 +19100,8 @@ export namespace Prisma {
     createdAt?: Date | string
     sellerId: string
     categoryId: string
+    avgRating?: number
+    totalReviews?: number
     packages?: ServicePackageUncheckedCreateNestedManyWithoutServiceInput
     orders?: OrderUncheckedCreateNestedManyWithoutServiceInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutServiceInput
@@ -19176,6 +19288,8 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Service"> | Date | string
     sellerId?: StringFilter<"Service"> | string
     categoryId?: StringFilter<"Service"> | string
+    avgRating?: FloatFilter<"Service"> | number
+    totalReviews?: IntFilter<"Service"> | number
   }
 
   export type OrderUpsertWithWhereUniqueWithoutBuyerInput = {
@@ -19326,6 +19440,8 @@ export namespace Prisma {
     description: string
     images?: ServiceCreateimagesInput | string[]
     createdAt?: Date | string
+    avgRating?: number
+    totalReviews?: number
     category: CategoryCreateNestedOneWithoutServicesInput
     packages?: ServicePackageCreateNestedManyWithoutServiceInput
     orders?: OrderCreateNestedManyWithoutServiceInput
@@ -19340,6 +19456,8 @@ export namespace Prisma {
     images?: ServiceCreateimagesInput | string[]
     createdAt?: Date | string
     categoryId: string
+    avgRating?: number
+    totalReviews?: number
     packages?: ServicePackageUncheckedCreateNestedManyWithoutServiceInput
     orders?: OrderUncheckedCreateNestedManyWithoutServiceInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutServiceInput
@@ -19547,6 +19665,8 @@ export namespace Prisma {
     description: string
     images?: ServiceCreateimagesInput | string[]
     createdAt?: Date | string
+    avgRating?: number
+    totalReviews?: number
     seller: SellerProfileCreateNestedOneWithoutServicesInput
     packages?: ServicePackageCreateNestedManyWithoutServiceInput
     orders?: OrderCreateNestedManyWithoutServiceInput
@@ -19561,6 +19681,8 @@ export namespace Prisma {
     images?: ServiceCreateimagesInput | string[]
     createdAt?: Date | string
     sellerId: string
+    avgRating?: number
+    totalReviews?: number
     packages?: ServicePackageUncheckedCreateNestedManyWithoutServiceInput
     orders?: OrderUncheckedCreateNestedManyWithoutServiceInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutServiceInput
@@ -19599,6 +19721,8 @@ export namespace Prisma {
     description: string
     images?: ServiceCreateimagesInput | string[]
     createdAt?: Date | string
+    avgRating?: number
+    totalReviews?: number
     seller: SellerProfileCreateNestedOneWithoutServicesInput
     category: CategoryCreateNestedOneWithoutServicesInput
     orders?: OrderCreateNestedManyWithoutServiceInput
@@ -19614,6 +19738,8 @@ export namespace Prisma {
     createdAt?: Date | string
     sellerId: string
     categoryId: string
+    avgRating?: number
+    totalReviews?: number
     orders?: OrderUncheckedCreateNestedManyWithoutServiceInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutServiceInput
     savedBy?: BuyerProfileUncheckedCreateNestedManyWithoutSavedServicesInput
@@ -19679,6 +19805,8 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     images?: ServiceUpdateimagesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    avgRating?: FloatFieldUpdateOperationsInput | number
+    totalReviews?: IntFieldUpdateOperationsInput | number
     seller?: SellerProfileUpdateOneRequiredWithoutServicesNestedInput
     category?: CategoryUpdateOneRequiredWithoutServicesNestedInput
     orders?: OrderUpdateManyWithoutServiceNestedInput
@@ -19694,6 +19822,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sellerId?: StringFieldUpdateOperationsInput | string
     categoryId?: StringFieldUpdateOperationsInput | string
+    avgRating?: FloatFieldUpdateOperationsInput | number
+    totalReviews?: IntFieldUpdateOperationsInput | number
     orders?: OrderUncheckedUpdateManyWithoutServiceNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutServiceNestedInput
     savedBy?: BuyerProfileUncheckedUpdateManyWithoutSavedServicesNestedInput
@@ -20051,6 +20181,8 @@ export namespace Prisma {
     description: string
     images?: ServiceCreateimagesInput | string[]
     createdAt?: Date | string
+    avgRating?: number
+    totalReviews?: number
     seller: SellerProfileCreateNestedOneWithoutServicesInput
     category: CategoryCreateNestedOneWithoutServicesInput
     packages?: ServicePackageCreateNestedManyWithoutServiceInput
@@ -20066,6 +20198,8 @@ export namespace Prisma {
     createdAt?: Date | string
     sellerId: string
     categoryId: string
+    avgRating?: number
+    totalReviews?: number
     packages?: ServicePackageUncheckedCreateNestedManyWithoutServiceInput
     reviews?: ReviewUncheckedCreateNestedManyWithoutServiceInput
     savedBy?: BuyerProfileUncheckedCreateNestedManyWithoutSavedServicesInput
@@ -20228,6 +20362,8 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     images?: ServiceUpdateimagesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    avgRating?: FloatFieldUpdateOperationsInput | number
+    totalReviews?: IntFieldUpdateOperationsInput | number
     seller?: SellerProfileUpdateOneRequiredWithoutServicesNestedInput
     category?: CategoryUpdateOneRequiredWithoutServicesNestedInput
     packages?: ServicePackageUpdateManyWithoutServiceNestedInput
@@ -20243,6 +20379,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sellerId?: StringFieldUpdateOperationsInput | string
     categoryId?: StringFieldUpdateOperationsInput | string
+    avgRating?: FloatFieldUpdateOperationsInput | number
+    totalReviews?: IntFieldUpdateOperationsInput | number
     packages?: ServicePackageUncheckedUpdateManyWithoutServiceNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutServiceNestedInput
     savedBy?: BuyerProfileUncheckedUpdateManyWithoutSavedServicesNestedInput
@@ -20522,6 +20660,8 @@ export namespace Prisma {
     description: string
     images?: ServiceCreateimagesInput | string[]
     createdAt?: Date | string
+    avgRating?: number
+    totalReviews?: number
     seller: SellerProfileCreateNestedOneWithoutServicesInput
     category: CategoryCreateNestedOneWithoutServicesInput
     packages?: ServicePackageCreateNestedManyWithoutServiceInput
@@ -20537,6 +20677,8 @@ export namespace Prisma {
     createdAt?: Date | string
     sellerId: string
     categoryId: string
+    avgRating?: number
+    totalReviews?: number
     packages?: ServicePackageUncheckedCreateNestedManyWithoutServiceInput
     orders?: OrderUncheckedCreateNestedManyWithoutServiceInput
     savedBy?: BuyerProfileUncheckedCreateNestedManyWithoutSavedServicesInput
@@ -20634,6 +20776,8 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     images?: ServiceUpdateimagesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    avgRating?: FloatFieldUpdateOperationsInput | number
+    totalReviews?: IntFieldUpdateOperationsInput | number
     seller?: SellerProfileUpdateOneRequiredWithoutServicesNestedInput
     category?: CategoryUpdateOneRequiredWithoutServicesNestedInput
     packages?: ServicePackageUpdateManyWithoutServiceNestedInput
@@ -20649,6 +20793,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sellerId?: StringFieldUpdateOperationsInput | string
     categoryId?: StringFieldUpdateOperationsInput | string
+    avgRating?: FloatFieldUpdateOperationsInput | number
+    totalReviews?: IntFieldUpdateOperationsInput | number
     packages?: ServicePackageUncheckedUpdateManyWithoutServiceNestedInput
     orders?: OrderUncheckedUpdateManyWithoutServiceNestedInput
     savedBy?: BuyerProfileUncheckedUpdateManyWithoutSavedServicesNestedInput
@@ -21092,6 +21238,8 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     images?: ServiceUpdateimagesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    avgRating?: FloatFieldUpdateOperationsInput | number
+    totalReviews?: IntFieldUpdateOperationsInput | number
     seller?: SellerProfileUpdateOneRequiredWithoutServicesNestedInput
     category?: CategoryUpdateOneRequiredWithoutServicesNestedInput
     packages?: ServicePackageUpdateManyWithoutServiceNestedInput
@@ -21107,6 +21255,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sellerId?: StringFieldUpdateOperationsInput | string
     categoryId?: StringFieldUpdateOperationsInput | string
+    avgRating?: FloatFieldUpdateOperationsInput | number
+    totalReviews?: IntFieldUpdateOperationsInput | number
     packages?: ServicePackageUncheckedUpdateManyWithoutServiceNestedInput
     orders?: OrderUncheckedUpdateManyWithoutServiceNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutServiceNestedInput
@@ -21120,6 +21270,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sellerId?: StringFieldUpdateOperationsInput | string
     categoryId?: StringFieldUpdateOperationsInput | string
+    avgRating?: FloatFieldUpdateOperationsInput | number
+    totalReviews?: IntFieldUpdateOperationsInput | number
   }
 
   export type OrderUpdateWithoutBuyerInput = {
@@ -21240,6 +21392,8 @@ export namespace Prisma {
     images?: ServiceCreateimagesInput | string[]
     createdAt?: Date | string
     categoryId: string
+    avgRating?: number
+    totalReviews?: number
   }
 
   export type OrderCreateManySellerInput = {
@@ -21274,6 +21428,8 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     images?: ServiceUpdateimagesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    avgRating?: FloatFieldUpdateOperationsInput | number
+    totalReviews?: IntFieldUpdateOperationsInput | number
     category?: CategoryUpdateOneRequiredWithoutServicesNestedInput
     packages?: ServicePackageUpdateManyWithoutServiceNestedInput
     orders?: OrderUpdateManyWithoutServiceNestedInput
@@ -21288,6 +21444,8 @@ export namespace Prisma {
     images?: ServiceUpdateimagesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     categoryId?: StringFieldUpdateOperationsInput | string
+    avgRating?: FloatFieldUpdateOperationsInput | number
+    totalReviews?: IntFieldUpdateOperationsInput | number
     packages?: ServicePackageUncheckedUpdateManyWithoutServiceNestedInput
     orders?: OrderUncheckedUpdateManyWithoutServiceNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutServiceNestedInput
@@ -21301,6 +21459,8 @@ export namespace Prisma {
     images?: ServiceUpdateimagesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     categoryId?: StringFieldUpdateOperationsInput | string
+    avgRating?: FloatFieldUpdateOperationsInput | number
+    totalReviews?: IntFieldUpdateOperationsInput | number
   }
 
   export type OrderUpdateWithoutSellerInput = {
@@ -21394,6 +21554,8 @@ export namespace Prisma {
     images?: ServiceCreateimagesInput | string[]
     createdAt?: Date | string
     sellerId: string
+    avgRating?: number
+    totalReviews?: number
   }
 
   export type ServiceUpdateWithoutCategoryInput = {
@@ -21402,6 +21564,8 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     images?: ServiceUpdateimagesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    avgRating?: FloatFieldUpdateOperationsInput | number
+    totalReviews?: IntFieldUpdateOperationsInput | number
     seller?: SellerProfileUpdateOneRequiredWithoutServicesNestedInput
     packages?: ServicePackageUpdateManyWithoutServiceNestedInput
     orders?: OrderUpdateManyWithoutServiceNestedInput
@@ -21416,6 +21580,8 @@ export namespace Prisma {
     images?: ServiceUpdateimagesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sellerId?: StringFieldUpdateOperationsInput | string
+    avgRating?: FloatFieldUpdateOperationsInput | number
+    totalReviews?: IntFieldUpdateOperationsInput | number
     packages?: ServicePackageUncheckedUpdateManyWithoutServiceNestedInput
     orders?: OrderUncheckedUpdateManyWithoutServiceNestedInput
     reviews?: ReviewUncheckedUpdateManyWithoutServiceNestedInput
@@ -21429,6 +21595,8 @@ export namespace Prisma {
     images?: ServiceUpdateimagesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sellerId?: StringFieldUpdateOperationsInput | string
+    avgRating?: FloatFieldUpdateOperationsInput | number
+    totalReviews?: IntFieldUpdateOperationsInput | number
   }
 
   export type OrderCreateManyPackageInput = {

@@ -121,11 +121,12 @@ model Service {
   categoryId String
   category   Category @relation(fields: [categoryId], references: [id])
 
-  packages ServicePackage[] // ✅ NEW
-
-  orders  Order[]
-  reviews Review[]
-  savedBy BuyerProfile[] @relation("SavedServices")
+  packages     ServicePackage[] // ✅ NEW
+  avgRating    Float            @default(0)
+  totalReviews Int              @default(0)
+  orders       Order[]
+  reviews      Review[]
+  savedBy      BuyerProfile[]   @relation("SavedServices")
 }
 
 model Order {

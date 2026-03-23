@@ -2,12 +2,14 @@ import { Router } from "express";
 import { UserRoutes } from "../modules/user/user.route";
 import { AuthRoutes } from "../modules/auth/auth.route";
 import { CategoryRoutes } from "../modules/category/category.route";
+import { PaymentRoutes } from "../modules/payment/payment.route";
 
 // Define all routes in one config array for clarity and easy updates
 const routes = [
   { path: "/user", handler: UserRoutes },
   { path: "/auth", handler: AuthRoutes },
   { path: "/categories", handler: CategoryRoutes },
+  { path: "/payment", handler: PaymentRoutes },
 ];
 
 const router = Router();

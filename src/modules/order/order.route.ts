@@ -3,7 +3,11 @@ import express from "express";
 import { authenticate } from "../../middlewares/auth.middleware";
 import { authorizeRoles } from "../../middlewares/role.middleware";
 import { validateRequest } from "../../middlewares/validateRequest";
-import { createOrderSchema, orderIdSchema } from "./order.validation";
+import {
+  createOrderSchema,
+  orderIdSchema,
+  updateOrderStatusSchema,
+} from "./order.validation";
 import { OrderController } from "./order.controller";
 
 const router = express.Router();
@@ -28,15 +32,13 @@ router.get(
   OrderController.getOrderById,
 );
 
-// Update status (SELLER or ADMIN)
 router.patch(
   "/:id/status",
   authenticate,
-  authorizeRoles("SELLER", "ADMIN"),
-  validateRequest(orderIdSchema),
+  authorizeRoles("SELLER", "BUYER", "ADMIN"),
+  validateRequest(updateOrderStatusSchema),
   OrderController.updateOrderStatus,
 );
-
 // Delete (ADMIN)
 router.delete(
   "/:id",

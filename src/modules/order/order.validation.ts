@@ -14,3 +14,8 @@ export const orderIdSchema = z.object({
     id: z.string().uuid(),
   }),
 });
+export const updateOrderStatusSchema = z.object({
+  body: z.object({
+    status: z.enum(["IN_PROGRESS", "DELIVERED", "COMPLETED", "CANCELLED"]),
+  }),
+});

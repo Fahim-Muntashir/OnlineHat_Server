@@ -90,11 +90,87 @@ export const OrderService = {
     });
   },
 
-  updateOrderStatus: async (id: string, status: any) => {
-    return prisma.order.update({
-      where: { id },
-      data: { status },
+  updateOrderStatus: async (
+    orderId: string,
+    userId: string,
+    role: string,
+    newStatus: string,
+  ) => {
+    const order = await prisma.order.findUnique({
+      where: { id: orderId },
+      include: { buyer: true, seller: true },
     });
+
+    if (!order) throw new Error("Order not found");
+
+    const current = order.status;
+
+    // ─── Transition Rules ────────────────────────────────────────────
+    const sellerTransitions: Record<string, string> = {
+      PENDING: "IN_PROGRESS",
+      IN_PROGRESS: "DELIVERED",
+    };
+
+    const buyerTransitions: Record<string, string> = {
+      DELIVERED: "COMPLETED",
+    };
+
+    const cancellableBy = ["BUYER", "ADMIN"];
+
+    if (newStatus === "CANCELLED") {
+      if (!cancellableBy.includes(role)) {
+        throw new Error("Only buyer or admin can cancel an order");
+      }
+
+      if (role === "BUYER" && order.buyer.userId !== userId) {
+        throw new Error("You can only cancel your own order");
+      }
+    } else if (role === "SELLER") {
+      const seller = await prisma.sellerProfile.findUnique({
+        where: { userId },
+      });
+
+      if (order.sellerId !== seller?.id) {
+        throw new Error("You can only update your own orders");
+      }
+
+      const allowed = sellerTransitions[current];
+      if (allowed !== newStatus) {
+        throw new Error(
+          `Seller cannot transition order from ${current} to ${newStatus}`,
+        );
+      }
+    } else if (role === "BUYER") {
+      const buyer = await prisma.buyerProfile.findUnique({
+        where: { userId },
+      });
+
+      if (order.buyerId !== buyer?.id) {
+        throw new Error("You can only update your own orders");
+      }
+
+      const allowed = buyerTransitions[current];
+      if (allowed !== newStatus) {
+        throw new Error(
+          `Buyer cannot transition order from ${current} to ${newStatus}`,
+        );
+      }
+    }
+
+    const updated = await prisma.order.update({
+      where: { id: orderId },
+      data: { status: newStatus as any },
+    });
+
+    // ─── Auto update seller earnings on COMPLETED ────────────────────
+    if (newStatus === "COMPLETED") {
+      await prisma.sellerProfile.update({
+        where: { id: order.sellerId },
+        data: { earnings: { increment: order.price } },
+      });
+    }
+
+    return updated;
   },
 
   deleteOrder: async (id: string) => {

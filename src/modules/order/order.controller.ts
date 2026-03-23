@@ -48,16 +48,20 @@ export const OrderController = {
     });
   }),
 
-  updateOrderStatus: catchAsync(async (req: Request, res: Response) => {
+  updateOrderStatus: catchAsync(async (req: AuthRequest, res: Response) => {
     const id = req.params.id as string;
+    const userId = req.user?.userId!;
+    const role = req.user?.role!;
     const { status } = req.body;
 
-    const updated = await OrderService.updateOrderStatus(id, status);
+    const updated = await OrderService.updateOrderStatus(
+      id,
+      userId,
+      role,
+      status,
+    );
 
-    res.status(200).json({
-      success: true,
-      data: updated,
-    });
+    res.status(200).json({ success: true, data: updated });
   }),
 
   deleteOrder: catchAsync(async (req: Request, res: Response) => {

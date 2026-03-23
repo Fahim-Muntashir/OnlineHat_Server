@@ -20,13 +20,22 @@ export const ServiceController = {
     });
   }),
 
-  getAllServices: catchAsync(async (_req: Request, res: Response) => {
-    const services = await ServiceService.getAllServices();
+  getAllServices: catchAsync(async (req: Request, res: Response) => {
+    const { page, limit, category, minPrice, maxPrice, rating, sort, search } =
+      req.query;
 
-    res.status(200).json({
-      success: true,
-      data: services,
+    const result = await ServiceService.getAllServices({
+      page: page ? Number(page) : 1,
+      limit: limit ? Number(limit) : 10,
+      category: category as string,
+      minPrice: minPrice ? Number(minPrice) : undefined,
+      maxPrice: maxPrice ? Number(maxPrice) : undefined,
+      rating: rating ? Number(rating) : undefined,
+      sort: sort as string,
+      search: search as string,
     });
+
+    res.status(200).json({ success: true, ...result });
   }),
 
   getServiceById: catchAsync(async (req: Request, res: Response) => {

@@ -3,18 +3,28 @@ import { UserRoutes } from "../modules/user/user.route";
 import { AuthRoutes } from "../modules/auth/auth.route";
 import { CategoryRoutes } from "../modules/category/category.route";
 import { PaymentRoutes } from "../modules/payment/payment.route";
+import { BuyerProfileRoutes } from "../modules/buyerProfile/buyerProfile.route";
+import { SellerProfileRoutes } from "../modules/sellerProfile/sellerProfile.route";
+import { ServiceRoutes } from "../modules/service/service.route";
+import { OrderRoutes } from "../modules/order/order.route";
+import { ReviewRoutes } from "../modules/review/review.route";
+import { AdminRoutes } from "../modules/admin/admin.route";
 
-// Define all routes in one config array for clarity and easy updates
 const routes = [
-  { path: "/user", handler: UserRoutes },
   { path: "/auth", handler: AuthRoutes },
+  { path: "/users", handler: UserRoutes },
+  { path: "/buyer-profiles", handler: BuyerProfileRoutes },
+  { path: "/seller-profiles", handler: SellerProfileRoutes },
   { path: "/categories", handler: CategoryRoutes },
+  { path: "/services", handler: ServiceRoutes },
+  { path: "/orders", handler: OrderRoutes },
+  { path: "/reviews", handler: ReviewRoutes },
   { path: "/payment", handler: PaymentRoutes },
+  { path: "/admin", handler: AdminRoutes },
 ];
 
 const router = Router();
 
-// Loop through all routes and register them
 routes.forEach((route) => {
   router.use(route.path, route.handler);
 });

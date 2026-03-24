@@ -15,5 +15,6 @@ router.post(
   validateRequest(createCategorySchema),
   CategoryController.createCategory,
 );
+router.get("/", CategoryController.getAllCategories);
 
 export const CategoryRoutes = router;

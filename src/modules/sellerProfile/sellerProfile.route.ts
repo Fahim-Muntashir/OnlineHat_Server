@@ -48,7 +48,8 @@ router
   .put(
     authenticate,
     authorizeRoles("SELLER"),
-    validateRequest(createSellerProfileSchema),
+    validateRequest(sellerProfileIdSchema), // ✅ add this for params
+    validateRequest(createSellerProfileSchema), // body
     SellerProfileController.updateSellerProfile,
   )
   .delete(

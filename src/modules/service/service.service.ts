@@ -98,6 +98,7 @@ export const ServiceService = {
         orderBy,
         include: {
           packages: true,
+
           seller: {
             include: { user: { select: { name: true, profileImage: true } } },
           },
@@ -124,9 +125,21 @@ export const ServiceService = {
       where: { id },
       include: {
         packages: true,
-        seller: true,
         category: true,
-        reviews: true, // optional (if you want)
+        reviews: {
+          include: {
+            buyer: {
+              include: {
+                user: true, // ✅ buyer name in reviews
+              },
+            },
+          },
+        },
+        seller: {
+          include: {
+            user: true, // ✅ seller name, email, profileImage
+          },
+        },
       },
     });
   },

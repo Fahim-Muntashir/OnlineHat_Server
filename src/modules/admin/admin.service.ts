@@ -14,8 +14,10 @@ export const AdminService = {
         }),
       ]);
 
-    const totalRevenue = payments.reduce((sum, p) => sum + p.amount, 0);
-
+    const totalRevenue = payments.reduce(
+      (sum: number, p: { amount: number }) => sum + p.amount,
+      0,
+    );
     return {
       totalUsers,
       totalOrders,

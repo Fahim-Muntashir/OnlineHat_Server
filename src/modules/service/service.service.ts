@@ -177,4 +177,22 @@ export const ServiceService = {
       },
     });
   },
+
+  getMyServices: async (userId: string) => {
+    const seller = await prisma.sellerProfile.findUnique({
+      where: { userId },
+    });
+
+    if (!seller) throw new Error("Seller profile not found");
+
+    return prisma.service.findMany({
+      where: { sellerId: seller.id },
+      include: {
+        packages: true,
+        category: true,
+        reviews: true,
+      },
+      orderBy: { createdAt: "desc" },
+    });
+  },
 };

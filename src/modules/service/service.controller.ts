@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import { AuthRequest } from "../../middlewares/auth.middleware";
 import { catchAsync } from "../../utils/catchAsync";
 import { ServiceService } from "./service.service";
+import { AppError } from "../../errors/AppError";
 
 export const ServiceController = {
   createService: catchAsync(async (req: AuthRequest, res: Response) => {
@@ -36,6 +37,18 @@ export const ServiceController = {
     });
 
     res.status(200).json({ success: true, ...result });
+  }),
+  // ✅ NEW — only this seller's services
+  getMyServices: catchAsync(async (req: AuthRequest, res: Response) => {
+    const userId = req.user?.userId;
+    if (!userId) throw new AppError("Unauthorized", 401);
+
+    const services = await ServiceService.getMyServices(userId);
+
+    res.status(200).json({
+      success: true,
+      data: services,
+    });
   }),
 
   getServiceById: catchAsync(async (req: Request, res: Response) => {

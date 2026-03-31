@@ -1,5 +1,4 @@
 // src/modules/service/service.utils.ts
-
 import { prisma } from "../../lib/prisma";
 
 export const updateServiceRating = async (serviceId: string) => {
@@ -13,22 +12,21 @@ export const updateServiceRating = async (serviceId: string) => {
   if (totalReviews === 0) {
     await prisma.service.update({
       where: { id: serviceId },
-      data: {
-        avgRating: 0,
-        totalReviews: 0,
-      },
+      data: { avgRating: 0, totalReviews: 0 },
     });
     return;
   }
 
-  const totalRating = reviews.reduce((sum, r) => sum + r.rating, 0);
+  // ✅ typed reduce
+  const totalRating = reviews.reduce(
+    (sum: number, r: { rating: number }) => sum + r.rating,
+    0,
+  );
+
   const avgRating = totalRating / totalReviews;
 
   await prisma.service.update({
     where: { id: serviceId },
-    data: {
-      avgRating,
-      totalReviews,
-    },
+    data: { avgRating, totalReviews },
   });
 };

@@ -8,7 +8,24 @@ import { ServiceController } from "./service.controller";
 
 const router = express.Router();
 
-// Create service (SELLER only)
+// ⚠️ /my-services MUST come before /:id
+router.get(
+  "/my-services",
+  authenticate,
+  authorizeRoles("SELLER"),
+  ServiceController.getMyServices,
+);
+
+// Public
+router.get("/", ServiceController.getAllServices);
+
+router.get(
+  "/:id",
+  validateRequest(serviceIdSchema),
+  ServiceController.getServiceById,
+);
+
+// Seller only
 router.post(
   "/",
   authenticate,
@@ -17,17 +34,6 @@ router.post(
   ServiceController.createService,
 );
 
-// Get all services
-router.get("/", ServiceController.getAllServices);
-
-// Get by ID
-router.get(
-  "/:id",
-  validateRequest(serviceIdSchema),
-  ServiceController.getServiceById,
-);
-
-// Update (SELLER)
 router.put(
   "/:id",
   authenticate,
@@ -36,7 +42,7 @@ router.put(
   ServiceController.updateService,
 );
 
-// Delete (SELLER or ADMIN)
+// Seller or Admin
 router.delete(
   "/:id",
   authenticate,

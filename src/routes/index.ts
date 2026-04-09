@@ -9,6 +9,9 @@ import { ServiceRoutes } from "../modules/service/service.route";
 import { OrderRoutes } from "../modules/order/order.route";
 import { ReviewRoutes } from "../modules/review/review.route";
 import { AdminRoutes } from "../modules/admin/admin.route";
+import { UploadRoutes } from "../modules/upload/upload.route";
+import { ChatRoutes } from "../modules/chat/chat.route";
+import { MetaRoutes } from "../modules/meta/meta.route";
 
 const routes = [
   { path: "/auth", handler: AuthRoutes },
@@ -21,6 +24,9 @@ const routes = [
   { path: "/reviews", handler: ReviewRoutes },
   { path: "/payment", handler: PaymentRoutes },
   { path: "/admin", handler: AdminRoutes },
+  { path: "/upload", handler: UploadRoutes },
+  { path: "/chat", handler: ChatRoutes },
+  { path: "/meta", handler: MetaRoutes },
 ];
 
 const router = Router();

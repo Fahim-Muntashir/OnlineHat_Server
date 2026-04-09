@@ -145,10 +145,27 @@ export const ServiceService = {
   },
 
   // ✅ UPDATE SERVICE
-  updateService: async (id: string, data: any) => {
+  updateService: async (id: string, payload: any) => {
+    const { packages, ...serviceData } = payload;
+    const updateData: any = { ...serviceData };
+
+    if (packages && Array.isArray(packages)) {
+      updateData.packages = {
+        deleteMany: {}, // Delete existing packages
+        create: packages.map((p: any) => ({
+          type: p.type,
+          title: p.title,
+          description: p.description,
+          price: Number(p.price),
+          deliveryDays: Number(p.deliveryDays),
+          revisions: p.revisions ? Number(p.revisions) : undefined,
+        })),
+      };
+    }
+
     const service = await prisma.service.update({
       where: { id },
-      data,
+      data: updateData,
     });
 
     // ⚠️ only if you changed something related (optional safety)

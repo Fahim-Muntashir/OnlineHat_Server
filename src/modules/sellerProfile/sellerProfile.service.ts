@@ -20,7 +20,21 @@ export const SellerProfileService = {
   },
 
   updateSellerProfile: async (id: string, data: any) => {
-    return prisma.sellerProfile.update({ where: { id }, data });
+    return prisma.$transaction(async (tx) => {
+      const updatedProfile = await tx.sellerProfile.update({
+        where: { id },
+        data,
+      });
+
+      if (data.profileImage) {
+        await tx.user.update({
+          where: { id: updatedProfile.userId },
+          data: { profileImage: data.profileImage },
+        });
+      }
+
+      return updatedProfile;
+    });
   },
 
   deleteSellerProfile: async (id: string) => {

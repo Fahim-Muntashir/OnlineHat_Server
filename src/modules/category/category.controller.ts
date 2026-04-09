@@ -7,7 +7,11 @@ import { AppError } from "../../errors/AppError";
 
 export const CategoryController = {
   createCategory: catchAsync(async (req: AuthRequest, res: Response) => {
-    const category = await CategoryService.createCategory(req.body);
+    const data = req.body;
+    if (req.file) {
+      data.icon = (req.file as any).path;
+    }
+    const category = await CategoryService.createCategory(data);
 
     res.status(201).json({
       success: true,

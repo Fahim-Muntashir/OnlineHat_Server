@@ -214,6 +214,7 @@ exports.Prisma.ReviewScalarFieldEnum = {
 exports.Prisma.ConversationScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
   buyerId: 'buyerId',
   sellerId: 'sellerId'
 };
@@ -224,7 +225,8 @@ exports.Prisma.MessageScalarFieldEnum = {
   createdAt: 'createdAt',
   senderBuyerId: 'senderBuyerId',
   senderSellerId: 'senderSellerId',
-  conversationId: 'conversationId'
+  conversationId: 'conversationId',
+  isRead: 'isRead'
 };
 
 exports.Prisma.SortOrder = {

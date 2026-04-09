@@ -8,6 +8,7 @@ import {
   createSellerProfileSchema,
   sellerProfileIdSchema,
 } from "./sellerProfile.validation";
+import { FileUploadHelper } from "../../helpers/fileUploadHelper";
 
 const router = express.Router();
 
@@ -48,8 +49,14 @@ router
   .put(
     authenticate,
     authorizeRoles("SELLER"),
+    FileUploadHelper.upload.single("image"),
+    (req, res, next) => {
+      if (req.body.data) {
+        req.body = JSON.parse(req.body.data);
+      }
+      next();
+    },
     validateRequest(sellerProfileIdSchema), // ✅ add this for params
-    validateRequest(createSellerProfileSchema), // body
     SellerProfileController.updateSellerProfile,
   )
   .delete(

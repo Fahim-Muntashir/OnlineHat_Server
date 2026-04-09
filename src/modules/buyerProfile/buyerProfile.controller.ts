@@ -48,6 +48,22 @@ export const BuyerProfileController = {
     });
   }),
 
+  updateBuyerProfile: catchAsync(async (req: AuthRequest, res: Response) => {
+    const id = req.params.id as string;
+    const data = req.body;
+    if (req.file) {
+      data.profileImage = (req.file as any).path;
+    }
+
+    const result = await BuyerProfileService.updateBuyerProfile(id, data);
+
+    res.status(200).json({
+      success: true,
+      message: "Buyer profile updated",
+      data: result,
+    });
+  }),
+
   deleteBuyerProfile: catchAsync(async (req: Request, res: Response) => {
     const id = req.params.id as string;
 

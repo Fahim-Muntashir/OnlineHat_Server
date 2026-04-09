@@ -12,7 +12,11 @@ export const ServiceController = {
     if (!userId)
       return res.status(401).json({ success: false, message: "Unauthorized" });
 
-    const service = await ServiceService.createService(userId, req.body);
+    const data = req.body;
+    if (req.files && Array.isArray(req.files)) {
+      data.images = (req.files as any[]).map((file) => file.path);
+    }
+    const service = await ServiceService.createService(userId, data);
 
     res.status(201).json({
       success: true,

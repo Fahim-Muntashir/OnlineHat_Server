@@ -47,4 +47,14 @@ export const UserController = {
       message: result.message,
     });
   }),
+
+  getNotifications: catchAsync(async (req: any, res: Response) => {
+    const userId = req.user?.userId;
+    const role = req.user?.role;
+    const result = await UserService.getNotificationCounts(userId, role);
+    res.status(200).json({
+      success: true,
+      data: result,
+    });
+  }),
 };

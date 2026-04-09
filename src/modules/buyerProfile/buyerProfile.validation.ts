@@ -11,5 +11,7 @@ export const createBuyerProfileSchema = z.object({
 
 // Params validation
 export const buyerProfileIdSchema = z.object({
-  id: z.string().uuid("Invalid profile ID"),
+  params: z.object({
+    id: z.string().uuid("Invalid profile ID"),
+  }),
 });

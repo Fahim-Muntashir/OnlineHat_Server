@@ -178,10 +178,55 @@ const deleteAllUsers = async () => {
   return { message: "All users deleted successfully" };
 };
 
+// ─── Get Notification Counts ──────────
+const getNotificationCounts = async (userId: string, role: string) => {
+  let unreadMessages = 0;
+  let activeOrders = 0;
+
+  if (role === "BUYER") {
+    const buyer = await prisma.buyerProfile.findUnique({ where: { userId } });
+    if (buyer) {
+      unreadMessages = await prisma.message.count({
+        where: {
+          conversation: { buyerId: buyer.id },
+          isRead: false,
+          senderSellerId: { not: null },
+        },
+      });
+      activeOrders = await prisma.order.count({
+        where: {
+          buyerId: buyer.id,
+          status: { in: ["PENDING", "IN_PROGRESS", "DELIVERED"] },
+        },
+      });
+    }
+  } else if (role === "SELLER") {
+    const seller = await prisma.sellerProfile.findUnique({ where: { userId } });
+    if (seller) {
+      unreadMessages = await prisma.message.count({
+        where: {
+          conversation: { sellerId: seller.id },
+          isRead: false,
+          senderBuyerId: { not: null },
+        },
+      });
+      activeOrders = await prisma.order.count({
+        where: {
+          sellerId: seller.id,
+          status: { in: ["PENDING", "IN_PROGRESS"] },
+        },
+      });
+    }
+  }
+
+  return { unreadMessages, activeOrders };
+};
+
 export const UserService = {
   createUser,
   getAllUsers,
   getUserById,
   deleteUser,
   deleteAllUsers,
+  getNotificationCounts,
 };

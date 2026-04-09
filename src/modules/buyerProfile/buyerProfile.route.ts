@@ -8,6 +8,7 @@ import {
   buyerProfileIdSchema,
 } from "./buyerProfile.validation";
 import { validateRequest } from "../../middlewares/validateRequest";
+import { FileUploadHelper } from "../../helpers/fileUploadHelper";
 
 const router = express.Router();
 
@@ -36,12 +37,25 @@ router.get(
   BuyerProfileController.getAllBuyerProfiles,
 );
 
-// Get by ID (validated)
-router.get(
-  "/:id",
-  validateRequest(buyerProfileIdSchema),
-  BuyerProfileController.getBuyerProfileById,
-);
+// ... existing routes ...
+
+// Get / Update / Delete profile by ID
+router
+  .route("/:id")
+  .get(validateRequest(buyerProfileIdSchema), BuyerProfileController.getBuyerProfileById)
+  .put(
+    authenticate,
+    authorizeRoles("BUYER"),
+    FileUploadHelper.upload.single("image"),
+    (req, res, next) => {
+      if (req.body.data) {
+        req.body = JSON.parse(req.body.data);
+      }
+      next();
+    },
+    validateRequest(buyerProfileIdSchema),
+    BuyerProfileController.updateBuyerProfile
+  );
 
 // Delete (admin only)
 router.delete(

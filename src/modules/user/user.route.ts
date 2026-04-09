@@ -10,6 +10,8 @@ const router = express.Router();
 // Public
 router.post("/register", UserController.createUser);
 
+router.get("/notifications", authenticate, UserController.getNotifications);
+
 // ⚠️ /all MUST come before /:id
 router.delete(
   "/all",

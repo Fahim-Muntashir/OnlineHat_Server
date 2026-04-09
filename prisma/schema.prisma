@@ -101,7 +101,7 @@ model ServicePackage {
   type PackageType
 
   serviceId String
-  service   Service @relation(fields: [serviceId], references: [id])
+  service   Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
 
   orders Order[] // ✅ ADD THIS
 
@@ -136,11 +136,11 @@ model Order {
   createdAt    DateTime    @default(now())
 
   serviceId String
-  service   Service @relation(fields: [serviceId], references: [id])
+  service   Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
 
   // ✅ CRITICAL (what user selected)
   packageId String
-  package   ServicePackage @relation(fields: [packageId], references: [id])
+  package   ServicePackage @relation(fields: [packageId], references: [id], onDelete: Cascade)
 
   // ✅ SNAPSHOT (freeze data at order time)
   price        Float
@@ -164,7 +164,7 @@ model Payment {
   createdAt DateTime      @default(now())
 
   orderId String @unique
-  order   Order  @relation(fields: [orderId], references: [id])
+  order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
 }
 
 model Review {
@@ -177,15 +177,16 @@ model Review {
   buyer   BuyerProfile @relation(fields: [buyerId], references: [id])
 
   serviceId String
-  service   Service @relation(fields: [serviceId], references: [id])
+  service   Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
 
   orderId String @unique
-  order   Order  @relation(fields: [orderId], references: [id])
+  order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
 }
 
 model Conversation {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 
   buyerId String
   buyer   BuyerProfile @relation("BuyerConversations", fields: [buyerId], references: [id])
@@ -209,4 +210,5 @@ model Message {
 
   conversationId String
   conversation   Conversation @relation(fields: [conversationId], references: [id])
+  isRead         Boolean      @default(false)
 }

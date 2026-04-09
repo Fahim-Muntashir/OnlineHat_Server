@@ -62,6 +62,24 @@ export const BuyerProfileService = {
     return profile;
   },
 
+  updateBuyerProfile: async (id: string, data: any) => {
+    return prisma.$transaction(async (tx) => {
+      const updatedProfile = await tx.buyerProfile.update({
+        where: { id },
+        data,
+      });
+
+      if (data.profileImage) {
+        await tx.user.update({
+          where: { id: updatedProfile.userId },
+          data: { profileImage: data.profileImage },
+        });
+      }
+
+      return updatedProfile;
+    });
+  },
+
   deleteBuyerProfile: async (id: string) => {
     return prisma.buyerProfile.delete({
       where: { id },

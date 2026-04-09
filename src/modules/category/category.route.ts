@@ -6,12 +6,21 @@ import { authenticate } from "../../middlewares/auth.middleware";
 import { authorizeRoles } from "../../middlewares/role.middleware";
 import { validateRequest } from "../../middlewares/validateRequest";
 
+import { FileUploadHelper } from "../../helpers/fileUploadHelper";
+
 const router = express.Router();
 
 router.post(
   "/",
   authenticate,
   authorizeRoles("ADMIN"),
+  FileUploadHelper.upload.single("image"),
+  (req, res, next) => {
+    if (req.body.data) {
+      req.body = JSON.parse(req.body.data);
+    }
+    next();
+  },
   validateRequest(createCategorySchema),
   CategoryController.createCategory,
 );

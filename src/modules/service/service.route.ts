@@ -6,6 +6,8 @@ import { validateRequest } from "../../middlewares/validateRequest";
 import { createServiceSchema, serviceIdSchema } from "./service.validation";
 import { ServiceController } from "./service.controller";
 
+import { FileUploadHelper } from "../../helpers/fileUploadHelper";
+
 const router = express.Router();
 
 // ⚠️ /my-services MUST come before /:id
@@ -30,6 +32,13 @@ router.post(
   "/",
   authenticate,
   authorizeRoles("SELLER"),
+  FileUploadHelper.upload.array("images", 5),
+  (req, res, next) => {
+    if (req.body.data) {
+      req.body = JSON.parse(req.body.data);
+    }
+    next();
+  },
   validateRequest(createServiceSchema),
   ServiceController.createService,
 );

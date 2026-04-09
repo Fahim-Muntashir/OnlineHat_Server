@@ -56,6 +56,9 @@ export const SellerProfileController = {
   updateSellerProfile: catchAsync(async (req: AuthRequest, res: Response) => {
     const id = req.params.id as string;
     const data = req.body;
+    if (req.file) {
+      data.profileImage = (req.file as any).path;
+    }
     const updatedProfile = await SellerProfileService.updateSellerProfile(
       id,
       data,

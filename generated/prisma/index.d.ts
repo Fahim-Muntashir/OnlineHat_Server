@@ -12679,6 +12679,7 @@ export namespace Prisma {
   export type ConversationMinAggregateOutputType = {
     id: string | null
     createdAt: Date | null
+    updatedAt: Date | null
     buyerId: string | null
     sellerId: string | null
   }
@@ -12686,6 +12687,7 @@ export namespace Prisma {
   export type ConversationMaxAggregateOutputType = {
     id: string | null
     createdAt: Date | null
+    updatedAt: Date | null
     buyerId: string | null
     sellerId: string | null
   }
@@ -12693,6 +12695,7 @@ export namespace Prisma {
   export type ConversationCountAggregateOutputType = {
     id: number
     createdAt: number
+    updatedAt: number
     buyerId: number
     sellerId: number
     _all: number
@@ -12702,6 +12705,7 @@ export namespace Prisma {
   export type ConversationMinAggregateInputType = {
     id?: true
     createdAt?: true
+    updatedAt?: true
     buyerId?: true
     sellerId?: true
   }
@@ -12709,6 +12713,7 @@ export namespace Prisma {
   export type ConversationMaxAggregateInputType = {
     id?: true
     createdAt?: true
+    updatedAt?: true
     buyerId?: true
     sellerId?: true
   }
@@ -12716,6 +12721,7 @@ export namespace Prisma {
   export type ConversationCountAggregateInputType = {
     id?: true
     createdAt?: true
+    updatedAt?: true
     buyerId?: true
     sellerId?: true
     _all?: true
@@ -12796,6 +12802,7 @@ export namespace Prisma {
   export type ConversationGroupByOutputType = {
     id: string
     createdAt: Date
+    updatedAt: Date
     buyerId: string
     sellerId: string
     _count: ConversationCountAggregateOutputType | null
@@ -12820,6 +12827,7 @@ export namespace Prisma {
   export type ConversationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     createdAt?: boolean
+    updatedAt?: boolean
     buyerId?: boolean
     sellerId?: boolean
     buyer?: boolean | BuyerProfileDefaultArgs<ExtArgs>
@@ -12831,6 +12839,7 @@ export namespace Prisma {
   export type ConversationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     createdAt?: boolean
+    updatedAt?: boolean
     buyerId?: boolean
     sellerId?: boolean
     buyer?: boolean | BuyerProfileDefaultArgs<ExtArgs>
@@ -12840,6 +12849,7 @@ export namespace Prisma {
   export type ConversationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     createdAt?: boolean
+    updatedAt?: boolean
     buyerId?: boolean
     sellerId?: boolean
     buyer?: boolean | BuyerProfileDefaultArgs<ExtArgs>
@@ -12849,11 +12859,12 @@ export namespace Prisma {
   export type ConversationSelectScalar = {
     id?: boolean
     createdAt?: boolean
+    updatedAt?: boolean
     buyerId?: boolean
     sellerId?: boolean
   }
 
-  export type ConversationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "buyerId" | "sellerId", ExtArgs["result"]["conversation"]>
+  export type ConversationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "buyerId" | "sellerId", ExtArgs["result"]["conversation"]>
   export type ConversationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     buyer?: boolean | BuyerProfileDefaultArgs<ExtArgs>
     seller?: boolean | SellerProfileDefaultArgs<ExtArgs>
@@ -12879,6 +12890,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       createdAt: Date
+      updatedAt: Date
       buyerId: string
       sellerId: string
     }, ExtArgs["result"]["conversation"]>
@@ -13309,6 +13321,7 @@ export namespace Prisma {
   interface ConversationFieldRefs {
     readonly id: FieldRef<"Conversation", 'String'>
     readonly createdAt: FieldRef<"Conversation", 'DateTime'>
+    readonly updatedAt: FieldRef<"Conversation", 'DateTime'>
     readonly buyerId: FieldRef<"Conversation", 'String'>
     readonly sellerId: FieldRef<"Conversation", 'String'>
   }
@@ -13771,6 +13784,7 @@ export namespace Prisma {
     senderBuyerId: string | null
     senderSellerId: string | null
     conversationId: string | null
+    isRead: boolean | null
   }
 
   export type MessageMaxAggregateOutputType = {
@@ -13780,6 +13794,7 @@ export namespace Prisma {
     senderBuyerId: string | null
     senderSellerId: string | null
     conversationId: string | null
+    isRead: boolean | null
   }
 
   export type MessageCountAggregateOutputType = {
@@ -13789,6 +13804,7 @@ export namespace Prisma {
     senderBuyerId: number
     senderSellerId: number
     conversationId: number
+    isRead: number
     _all: number
   }
 
@@ -13800,6 +13816,7 @@ export namespace Prisma {
     senderBuyerId?: true
     senderSellerId?: true
     conversationId?: true
+    isRead?: true
   }
 
   export type MessageMaxAggregateInputType = {
@@ -13809,6 +13826,7 @@ export namespace Prisma {
     senderBuyerId?: true
     senderSellerId?: true
     conversationId?: true
+    isRead?: true
   }
 
   export type MessageCountAggregateInputType = {
@@ -13818,6 +13836,7 @@ export namespace Prisma {
     senderBuyerId?: true
     senderSellerId?: true
     conversationId?: true
+    isRead?: true
     _all?: true
   }
 
@@ -13900,6 +13919,7 @@ export namespace Prisma {
     senderBuyerId: string | null
     senderSellerId: string | null
     conversationId: string
+    isRead: boolean
     _count: MessageCountAggregateOutputType | null
     _min: MessageMinAggregateOutputType | null
     _max: MessageMaxAggregateOutputType | null
@@ -13926,6 +13946,7 @@ export namespace Prisma {
     senderBuyerId?: boolean
     senderSellerId?: boolean
     conversationId?: boolean
+    isRead?: boolean
     senderBuyer?: boolean | Message$senderBuyerArgs<ExtArgs>
     senderSeller?: boolean | Message$senderSellerArgs<ExtArgs>
     conversation?: boolean | ConversationDefaultArgs<ExtArgs>
@@ -13938,6 +13959,7 @@ export namespace Prisma {
     senderBuyerId?: boolean
     senderSellerId?: boolean
     conversationId?: boolean
+    isRead?: boolean
     senderBuyer?: boolean | Message$senderBuyerArgs<ExtArgs>
     senderSeller?: boolean | Message$senderSellerArgs<ExtArgs>
     conversation?: boolean | ConversationDefaultArgs<ExtArgs>
@@ -13950,6 +13972,7 @@ export namespace Prisma {
     senderBuyerId?: boolean
     senderSellerId?: boolean
     conversationId?: boolean
+    isRead?: boolean
     senderBuyer?: boolean | Message$senderBuyerArgs<ExtArgs>
     senderSeller?: boolean | Message$senderSellerArgs<ExtArgs>
     conversation?: boolean | ConversationDefaultArgs<ExtArgs>
@@ -13962,9 +13985,10 @@ export namespace Prisma {
     senderBuyerId?: boolean
     senderSellerId?: boolean
     conversationId?: boolean
+    isRead?: boolean
   }
 
-  export type MessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "content" | "createdAt" | "senderBuyerId" | "senderSellerId" | "conversationId", ExtArgs["result"]["message"]>
+  export type MessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "content" | "createdAt" | "senderBuyerId" | "senderSellerId" | "conversationId" | "isRead", ExtArgs["result"]["message"]>
   export type MessageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     senderBuyer?: boolean | Message$senderBuyerArgs<ExtArgs>
     senderSeller?: boolean | Message$senderSellerArgs<ExtArgs>
@@ -13995,6 +14019,7 @@ export namespace Prisma {
       senderBuyerId: string | null
       senderSellerId: string | null
       conversationId: string
+      isRead: boolean
     }, ExtArgs["result"]["message"]>
     composites: {}
   }
@@ -14427,6 +14452,7 @@ export namespace Prisma {
     readonly senderBuyerId: FieldRef<"Message", 'String'>
     readonly senderSellerId: FieldRef<"Message", 'String'>
     readonly conversationId: FieldRef<"Message", 'String'>
+    readonly isRead: FieldRef<"Message", 'Boolean'>
   }
     
 
@@ -15019,6 +15045,7 @@ export namespace Prisma {
   export const ConversationScalarFieldEnum: {
     id: 'id',
     createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
     buyerId: 'buyerId',
     sellerId: 'sellerId'
   };
@@ -15032,7 +15059,8 @@ export namespace Prisma {
     createdAt: 'createdAt',
     senderBuyerId: 'senderBuyerId',
     senderSellerId: 'senderSellerId',
-    conversationId: 'conversationId'
+    conversationId: 'conversationId',
+    isRead: 'isRead'
   };
 
   export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
@@ -15176,6 +15204,13 @@ export namespace Prisma {
    * Reference to a field of type 'PaymentStatus[]'
    */
   export type ListEnumPaymentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
   /**
    * Deep Input Types
@@ -15859,6 +15894,7 @@ export namespace Prisma {
     NOT?: ConversationWhereInput | ConversationWhereInput[]
     id?: StringFilter<"Conversation"> | string
     createdAt?: DateTimeFilter<"Conversation"> | Date | string
+    updatedAt?: DateTimeFilter<"Conversation"> | Date | string
     buyerId?: StringFilter<"Conversation"> | string
     sellerId?: StringFilter<"Conversation"> | string
     buyer?: XOR<BuyerProfileScalarRelationFilter, BuyerProfileWhereInput>
@@ -15869,6 +15905,7 @@ export namespace Prisma {
   export type ConversationOrderByWithRelationInput = {
     id?: SortOrder
     createdAt?: SortOrder
+    updatedAt?: SortOrder
     buyerId?: SortOrder
     sellerId?: SortOrder
     buyer?: BuyerProfileOrderByWithRelationInput
@@ -15882,6 +15919,7 @@ export namespace Prisma {
     OR?: ConversationWhereInput[]
     NOT?: ConversationWhereInput | ConversationWhereInput[]
     createdAt?: DateTimeFilter<"Conversation"> | Date | string
+    updatedAt?: DateTimeFilter<"Conversation"> | Date | string
     buyerId?: StringFilter<"Conversation"> | string
     sellerId?: StringFilter<"Conversation"> | string
     buyer?: XOR<BuyerProfileScalarRelationFilter, BuyerProfileWhereInput>
@@ -15892,6 +15930,7 @@ export namespace Prisma {
   export type ConversationOrderByWithAggregationInput = {
     id?: SortOrder
     createdAt?: SortOrder
+    updatedAt?: SortOrder
     buyerId?: SortOrder
     sellerId?: SortOrder
     _count?: ConversationCountOrderByAggregateInput
@@ -15905,6 +15944,7 @@ export namespace Prisma {
     NOT?: ConversationScalarWhereWithAggregatesInput | ConversationScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Conversation"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Conversation"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Conversation"> | Date | string
     buyerId?: StringWithAggregatesFilter<"Conversation"> | string
     sellerId?: StringWithAggregatesFilter<"Conversation"> | string
   }
@@ -15919,6 +15959,7 @@ export namespace Prisma {
     senderBuyerId?: StringNullableFilter<"Message"> | string | null
     senderSellerId?: StringNullableFilter<"Message"> | string | null
     conversationId?: StringFilter<"Message"> | string
+    isRead?: BoolFilter<"Message"> | boolean
     senderBuyer?: XOR<BuyerProfileNullableScalarRelationFilter, BuyerProfileWhereInput> | null
     senderSeller?: XOR<SellerProfileNullableScalarRelationFilter, SellerProfileWhereInput> | null
     conversation?: XOR<ConversationScalarRelationFilter, ConversationWhereInput>
@@ -15931,6 +15972,7 @@ export namespace Prisma {
     senderBuyerId?: SortOrderInput | SortOrder
     senderSellerId?: SortOrderInput | SortOrder
     conversationId?: SortOrder
+    isRead?: SortOrder
     senderBuyer?: BuyerProfileOrderByWithRelationInput
     senderSeller?: SellerProfileOrderByWithRelationInput
     conversation?: ConversationOrderByWithRelationInput
@@ -15946,6 +15988,7 @@ export namespace Prisma {
     senderBuyerId?: StringNullableFilter<"Message"> | string | null
     senderSellerId?: StringNullableFilter<"Message"> | string | null
     conversationId?: StringFilter<"Message"> | string
+    isRead?: BoolFilter<"Message"> | boolean
     senderBuyer?: XOR<BuyerProfileNullableScalarRelationFilter, BuyerProfileWhereInput> | null
     senderSeller?: XOR<SellerProfileNullableScalarRelationFilter, SellerProfileWhereInput> | null
     conversation?: XOR<ConversationScalarRelationFilter, ConversationWhereInput>
@@ -15958,6 +16001,7 @@ export namespace Prisma {
     senderBuyerId?: SortOrderInput | SortOrder
     senderSellerId?: SortOrderInput | SortOrder
     conversationId?: SortOrder
+    isRead?: SortOrder
     _count?: MessageCountOrderByAggregateInput
     _max?: MessageMaxOrderByAggregateInput
     _min?: MessageMinOrderByAggregateInput
@@ -15973,6 +16017,7 @@ export namespace Prisma {
     senderBuyerId?: StringNullableWithAggregatesFilter<"Message"> | string | null
     senderSellerId?: StringNullableWithAggregatesFilter<"Message"> | string | null
     conversationId?: StringWithAggregatesFilter<"Message"> | string
+    isRead?: BoolWithAggregatesFilter<"Message"> | boolean
   }
 
   export type UserCreateInput = {
@@ -16678,6 +16723,7 @@ export namespace Prisma {
   export type ConversationCreateInput = {
     id?: string
     createdAt?: Date | string
+    updatedAt?: Date | string
     buyer: BuyerProfileCreateNestedOneWithoutConversationsInput
     seller: SellerProfileCreateNestedOneWithoutConversationsInput
     messages?: MessageCreateNestedManyWithoutConversationInput
@@ -16686,6 +16732,7 @@ export namespace Prisma {
   export type ConversationUncheckedCreateInput = {
     id?: string
     createdAt?: Date | string
+    updatedAt?: Date | string
     buyerId: string
     sellerId: string
     messages?: MessageUncheckedCreateNestedManyWithoutConversationInput
@@ -16694,6 +16741,7 @@ export namespace Prisma {
   export type ConversationUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     buyer?: BuyerProfileUpdateOneRequiredWithoutConversationsNestedInput
     seller?: SellerProfileUpdateOneRequiredWithoutConversationsNestedInput
     messages?: MessageUpdateManyWithoutConversationNestedInput
@@ -16702,6 +16750,7 @@ export namespace Prisma {
   export type ConversationUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     buyerId?: StringFieldUpdateOperationsInput | string
     sellerId?: StringFieldUpdateOperationsInput | string
     messages?: MessageUncheckedUpdateManyWithoutConversationNestedInput
@@ -16710,6 +16759,7 @@ export namespace Prisma {
   export type ConversationCreateManyInput = {
     id?: string
     createdAt?: Date | string
+    updatedAt?: Date | string
     buyerId: string
     sellerId: string
   }
@@ -16717,11 +16767,13 @@ export namespace Prisma {
   export type ConversationUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ConversationUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     buyerId?: StringFieldUpdateOperationsInput | string
     sellerId?: StringFieldUpdateOperationsInput | string
   }
@@ -16730,6 +16782,7 @@ export namespace Prisma {
     id?: string
     content: string
     createdAt?: Date | string
+    isRead?: boolean
     senderBuyer?: BuyerProfileCreateNestedOneWithoutSentMessagesInput
     senderSeller?: SellerProfileCreateNestedOneWithoutSentMessagesInput
     conversation: ConversationCreateNestedOneWithoutMessagesInput
@@ -16742,12 +16795,14 @@ export namespace Prisma {
     senderBuyerId?: string | null
     senderSellerId?: string | null
     conversationId: string
+    isRead?: boolean
   }
 
   export type MessageUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
     senderBuyer?: BuyerProfileUpdateOneWithoutSentMessagesNestedInput
     senderSeller?: SellerProfileUpdateOneWithoutSentMessagesNestedInput
     conversation?: ConversationUpdateOneRequiredWithoutMessagesNestedInput
@@ -16760,6 +16815,7 @@ export namespace Prisma {
     senderBuyerId?: NullableStringFieldUpdateOperationsInput | string | null
     senderSellerId?: NullableStringFieldUpdateOperationsInput | string | null
     conversationId?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type MessageCreateManyInput = {
@@ -16769,12 +16825,14 @@ export namespace Prisma {
     senderBuyerId?: string | null
     senderSellerId?: string | null
     conversationId: string
+    isRead?: boolean
   }
 
   export type MessageUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type MessageUncheckedUpdateManyInput = {
@@ -16784,6 +16842,7 @@ export namespace Prisma {
     senderBuyerId?: NullableStringFieldUpdateOperationsInput | string | null
     senderSellerId?: NullableStringFieldUpdateOperationsInput | string | null
     conversationId?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -17490,6 +17549,7 @@ export namespace Prisma {
   export type ConversationCountOrderByAggregateInput = {
     id?: SortOrder
     createdAt?: SortOrder
+    updatedAt?: SortOrder
     buyerId?: SortOrder
     sellerId?: SortOrder
   }
@@ -17497,6 +17557,7 @@ export namespace Prisma {
   export type ConversationMaxOrderByAggregateInput = {
     id?: SortOrder
     createdAt?: SortOrder
+    updatedAt?: SortOrder
     buyerId?: SortOrder
     sellerId?: SortOrder
   }
@@ -17504,8 +17565,14 @@ export namespace Prisma {
   export type ConversationMinOrderByAggregateInput = {
     id?: SortOrder
     createdAt?: SortOrder
+    updatedAt?: SortOrder
     buyerId?: SortOrder
     sellerId?: SortOrder
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type ConversationScalarRelationFilter = {
@@ -17520,6 +17587,7 @@ export namespace Prisma {
     senderBuyerId?: SortOrder
     senderSellerId?: SortOrder
     conversationId?: SortOrder
+    isRead?: SortOrder
   }
 
   export type MessageMaxOrderByAggregateInput = {
@@ -17529,6 +17597,7 @@ export namespace Prisma {
     senderBuyerId?: SortOrder
     senderSellerId?: SortOrder
     conversationId?: SortOrder
+    isRead?: SortOrder
   }
 
   export type MessageMinOrderByAggregateInput = {
@@ -17538,6 +17607,15 @@ export namespace Prisma {
     senderBuyerId?: SortOrder
     senderSellerId?: SortOrder
     conversationId?: SortOrder
+    isRead?: SortOrder
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type BuyerProfileCreateNestedOneWithoutUserInput = {
@@ -18639,6 +18717,10 @@ export namespace Prisma {
     connect?: ConversationWhereUniqueInput
   }
 
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
   export type BuyerProfileUpdateOneWithoutSentMessagesNestedInput = {
     create?: XOR<BuyerProfileCreateWithoutSentMessagesInput, BuyerProfileUncheckedCreateWithoutSentMessagesInput>
     connectOrCreate?: BuyerProfileCreateOrConnectWithoutSentMessagesInput
@@ -18914,6 +18996,19 @@ export namespace Prisma {
     _max?: NestedEnumPaymentStatusFilter<$PrismaModel>
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type BuyerProfileCreateWithoutUserInput = {
     id?: string
     bio?: string | null
@@ -19181,6 +19276,7 @@ export namespace Prisma {
   export type ConversationCreateWithoutBuyerInput = {
     id?: string
     createdAt?: Date | string
+    updatedAt?: Date | string
     seller: SellerProfileCreateNestedOneWithoutConversationsInput
     messages?: MessageCreateNestedManyWithoutConversationInput
   }
@@ -19188,6 +19284,7 @@ export namespace Prisma {
   export type ConversationUncheckedCreateWithoutBuyerInput = {
     id?: string
     createdAt?: Date | string
+    updatedAt?: Date | string
     sellerId: string
     messages?: MessageUncheckedCreateNestedManyWithoutConversationInput
   }
@@ -19206,6 +19303,7 @@ export namespace Prisma {
     id?: string
     content: string
     createdAt?: Date | string
+    isRead?: boolean
     senderSeller?: SellerProfileCreateNestedOneWithoutSentMessagesInput
     conversation: ConversationCreateNestedOneWithoutMessagesInput
   }
@@ -19216,6 +19314,7 @@ export namespace Prisma {
     createdAt?: Date | string
     senderSellerId?: string | null
     conversationId: string
+    isRead?: boolean
   }
 
   export type MessageCreateOrConnectWithoutSenderBuyerInput = {
@@ -19375,6 +19474,7 @@ export namespace Prisma {
     NOT?: ConversationScalarWhereInput | ConversationScalarWhereInput[]
     id?: StringFilter<"Conversation"> | string
     createdAt?: DateTimeFilter<"Conversation"> | Date | string
+    updatedAt?: DateTimeFilter<"Conversation"> | Date | string
     buyerId?: StringFilter<"Conversation"> | string
     sellerId?: StringFilter<"Conversation"> | string
   }
@@ -19405,6 +19505,7 @@ export namespace Prisma {
     senderBuyerId?: StringNullableFilter<"Message"> | string | null
     senderSellerId?: StringNullableFilter<"Message"> | string | null
     conversationId?: StringFilter<"Message"> | string
+    isRead?: BoolFilter<"Message"> | boolean
   }
 
   export type UserCreateWithoutSellerProfileInput = {
@@ -19515,6 +19616,7 @@ export namespace Prisma {
   export type ConversationCreateWithoutSellerInput = {
     id?: string
     createdAt?: Date | string
+    updatedAt?: Date | string
     buyer: BuyerProfileCreateNestedOneWithoutConversationsInput
     messages?: MessageCreateNestedManyWithoutConversationInput
   }
@@ -19522,6 +19624,7 @@ export namespace Prisma {
   export type ConversationUncheckedCreateWithoutSellerInput = {
     id?: string
     createdAt?: Date | string
+    updatedAt?: Date | string
     buyerId: string
     messages?: MessageUncheckedCreateNestedManyWithoutConversationInput
   }
@@ -19540,6 +19643,7 @@ export namespace Prisma {
     id?: string
     content: string
     createdAt?: Date | string
+    isRead?: boolean
     senderBuyer?: BuyerProfileCreateNestedOneWithoutSentMessagesInput
     conversation: ConversationCreateNestedOneWithoutMessagesInput
   }
@@ -19550,6 +19654,7 @@ export namespace Prisma {
     createdAt?: Date | string
     senderBuyerId?: string | null
     conversationId: string
+    isRead?: boolean
   }
 
   export type MessageCreateOrConnectWithoutSenderSellerInput = {
@@ -20905,6 +21010,7 @@ export namespace Prisma {
     id?: string
     content: string
     createdAt?: Date | string
+    isRead?: boolean
     senderBuyer?: BuyerProfileCreateNestedOneWithoutSentMessagesInput
     senderSeller?: SellerProfileCreateNestedOneWithoutSentMessagesInput
   }
@@ -20915,6 +21021,7 @@ export namespace Prisma {
     createdAt?: Date | string
     senderBuyerId?: string | null
     senderSellerId?: string | null
+    isRead?: boolean
   }
 
   export type MessageCreateOrConnectWithoutConversationInput = {
@@ -21082,6 +21189,7 @@ export namespace Prisma {
   export type ConversationCreateWithoutMessagesInput = {
     id?: string
     createdAt?: Date | string
+    updatedAt?: Date | string
     buyer: BuyerProfileCreateNestedOneWithoutConversationsInput
     seller: SellerProfileCreateNestedOneWithoutConversationsInput
   }
@@ -21089,6 +21197,7 @@ export namespace Prisma {
   export type ConversationUncheckedCreateWithoutMessagesInput = {
     id?: string
     createdAt?: Date | string
+    updatedAt?: Date | string
     buyerId: string
     sellerId: string
   }
@@ -21186,6 +21295,7 @@ export namespace Prisma {
   export type ConversationUpdateWithoutMessagesInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     buyer?: BuyerProfileUpdateOneRequiredWithoutConversationsNestedInput
     seller?: SellerProfileUpdateOneRequiredWithoutConversationsNestedInput
   }
@@ -21193,6 +21303,7 @@ export namespace Prisma {
   export type ConversationUncheckedUpdateWithoutMessagesInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     buyerId?: StringFieldUpdateOperationsInput | string
     sellerId?: StringFieldUpdateOperationsInput | string
   }
@@ -21221,6 +21332,7 @@ export namespace Prisma {
   export type ConversationCreateManyBuyerInput = {
     id?: string
     createdAt?: Date | string
+    updatedAt?: Date | string
     sellerId: string
   }
 
@@ -21230,6 +21342,7 @@ export namespace Prisma {
     createdAt?: Date | string
     senderSellerId?: string | null
     conversationId: string
+    isRead?: boolean
   }
 
   export type ServiceUpdateWithoutSavedByInput = {
@@ -21344,6 +21457,7 @@ export namespace Prisma {
   export type ConversationUpdateWithoutBuyerInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     seller?: SellerProfileUpdateOneRequiredWithoutConversationsNestedInput
     messages?: MessageUpdateManyWithoutConversationNestedInput
   }
@@ -21351,6 +21465,7 @@ export namespace Prisma {
   export type ConversationUncheckedUpdateWithoutBuyerInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sellerId?: StringFieldUpdateOperationsInput | string
     messages?: MessageUncheckedUpdateManyWithoutConversationNestedInput
   }
@@ -21358,6 +21473,7 @@ export namespace Prisma {
   export type ConversationUncheckedUpdateManyWithoutBuyerInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sellerId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -21365,6 +21481,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
     senderSeller?: SellerProfileUpdateOneWithoutSentMessagesNestedInput
     conversation?: ConversationUpdateOneRequiredWithoutMessagesNestedInput
   }
@@ -21375,6 +21492,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     senderSellerId?: NullableStringFieldUpdateOperationsInput | string | null
     conversationId?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type MessageUncheckedUpdateManyWithoutSenderBuyerInput = {
@@ -21383,6 +21501,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     senderSellerId?: NullableStringFieldUpdateOperationsInput | string | null
     conversationId?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type ServiceCreateManySellerInput = {
@@ -21411,6 +21530,7 @@ export namespace Prisma {
   export type ConversationCreateManySellerInput = {
     id?: string
     createdAt?: Date | string
+    updatedAt?: Date | string
     buyerId: string
   }
 
@@ -21420,6 +21540,7 @@ export namespace Prisma {
     createdAt?: Date | string
     senderBuyerId?: string | null
     conversationId: string
+    isRead?: boolean
   }
 
   export type ServiceUpdateWithoutSellerInput = {
@@ -21506,6 +21627,7 @@ export namespace Prisma {
   export type ConversationUpdateWithoutSellerInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     buyer?: BuyerProfileUpdateOneRequiredWithoutConversationsNestedInput
     messages?: MessageUpdateManyWithoutConversationNestedInput
   }
@@ -21513,6 +21635,7 @@ export namespace Prisma {
   export type ConversationUncheckedUpdateWithoutSellerInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     buyerId?: StringFieldUpdateOperationsInput | string
     messages?: MessageUncheckedUpdateManyWithoutConversationNestedInput
   }
@@ -21520,6 +21643,7 @@ export namespace Prisma {
   export type ConversationUncheckedUpdateManyWithoutSellerInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     buyerId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -21527,6 +21651,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
     senderBuyer?: BuyerProfileUpdateOneWithoutSentMessagesNestedInput
     conversation?: ConversationUpdateOneRequiredWithoutMessagesNestedInput
   }
@@ -21537,6 +21662,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     senderBuyerId?: NullableStringFieldUpdateOperationsInput | string | null
     conversationId?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type MessageUncheckedUpdateManyWithoutSenderSellerInput = {
@@ -21545,6 +21671,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     senderBuyerId?: NullableStringFieldUpdateOperationsInput | string | null
     conversationId?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type ServiceCreateManyCategoryInput = {
@@ -21826,12 +21953,14 @@ export namespace Prisma {
     createdAt?: Date | string
     senderBuyerId?: string | null
     senderSellerId?: string | null
+    isRead?: boolean
   }
 
   export type MessageUpdateWithoutConversationInput = {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
     senderBuyer?: BuyerProfileUpdateOneWithoutSentMessagesNestedInput
     senderSeller?: SellerProfileUpdateOneWithoutSentMessagesNestedInput
   }
@@ -21842,6 +21971,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     senderBuyerId?: NullableStringFieldUpdateOperationsInput | string | null
     senderSellerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isRead?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type MessageUncheckedUpdateManyWithoutConversationInput = {
@@ -21850,6 +21980,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     senderBuyerId?: NullableStringFieldUpdateOperationsInput | string | null
     senderSellerId?: NullableStringFieldUpdateOperationsInput | string | null
+    isRead?: BoolFieldUpdateOperationsInput | boolean
   }
 
 

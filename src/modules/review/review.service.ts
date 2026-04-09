@@ -83,4 +83,30 @@ export const ReviewService = {
       where: { id },
     });
   },
+
+  // ✅ GET TESTIMONIALS
+  getTestimonials: async () => {
+    return prisma.review.findMany({
+      where: {
+        rating: { gte: 4 },
+        comment: { not: "" },
+      },
+      take: 6,
+      include: {
+        buyer: {
+          include: {
+            user: {
+              select: {
+                name: true,
+                profileImage: true,
+              },
+            },
+          },
+        },
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+  },
 };

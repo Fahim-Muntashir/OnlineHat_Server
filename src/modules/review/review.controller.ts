@@ -41,4 +41,13 @@ export const ReviewController = {
       message: "Review deleted",
     });
   }),
+
+  getTestimonials: catchAsync(async (req: Request, res: Response) => {
+    const reviews = await ReviewService.getTestimonials();
+
+    res.status(200).json({
+      success: true,
+      data: reviews,
+    });
+  }),
 };

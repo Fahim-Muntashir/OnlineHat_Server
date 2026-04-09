@@ -12,6 +12,7 @@ import { AdminRoutes } from "../modules/admin/admin.route";
 import { UploadRoutes } from "../modules/upload/upload.route";
 import { ChatRoutes } from "../modules/chat/chat.route";
 import { MetaRoutes } from "../modules/meta/meta.route";
+import { AIRoutes } from "../modules/ai/ai.route";
 
 const routes = [
   { path: "/auth", handler: AuthRoutes },
@@ -27,6 +28,7 @@ const routes = [
   { path: "/upload", handler: UploadRoutes },
   { path: "/chat", handler: ChatRoutes },
   { path: "/meta", handler: MetaRoutes },
+  { path: "/ai", handler: AIRoutes },
 ];
 
 const router = Router();

@@ -20,6 +20,9 @@ router.post(
 // Get reviews by service
 router.get("/service/:serviceId", ReviewController.getReviewsByService);
 
+// Get testimonials
+router.get("/testimonials", ReviewController.getTestimonials);
+
 // Delete review (ADMIN only)
 router.delete(
   "/:id",
